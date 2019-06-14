@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login - BigDreamIndia.com</title>
+    <title>Login - Goal21</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="./vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="./vendors/css/vendor.bundle.base.css">
@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <label class="label">Username</label>
                                 <div class="input-group">
-                                <input type="text" name="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Eg: BDI3SADRE" required autofocus>
+                                <input type="text" name="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Eg: GL123456" required autofocus>
                                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -91,7 +91,7 @@
                             <a href="#">Terms</a>
                         </li>--}}
                     </ul>
-                    <p class="footer-text text-center">Copyright © 2019 BigDreamIndia. All rights reserved.</p>
+                    <p class="footer-text text-center">Copyright © 2019 Goal21. All rights reserved.</p>
                 </div>
             </div>
         </div>

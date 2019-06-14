@@ -5,7 +5,7 @@
     @if(!Auth::user()->is_profile_completed || !Auth::user()->payment_confirmed)
     <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">Complete your profile & pay to get started!</h4>
-        <p>Congrats! You have successfully registered with BigDreamIndia Network. Before you can start referring people you need to follow the mandatory instructions:</p>
+        <p>Congrats! You have successfully registered with Goal21 Network. Before you can start referring people you need to follow the mandatory instructions:</p>
         <ul class="list-ticked">
             @if(!Auth::user()->is_profile_completed)
             <li>Complete your profile by adding your payment preferences.</li>
