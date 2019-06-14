@@ -38,6 +38,6 @@ class MemberWelcomeMail extends Mailable
     public function build()
     {
         return $this->markdown('emails.welcome')
-            ->subject("Login Information for your new HelpYuva Account");
+            ->subject("Login Information for your new Goal21 Account");
     }
 }
