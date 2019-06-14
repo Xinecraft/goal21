@@ -43,6 +43,14 @@
                 <span class="menu-title">Sent Payments</span>
             </a>
         </li>--}}
+        @if(!Auth::user()->is_profile_completed)
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('get.completeyourprofile') }}">
+                <i class="menu-icon mdi mdi-send"></i>
+                <span class="menu-title">Complete KYC</span>
+            </a>
+        </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" href="{{ route('get.userdetails',Auth::user()->uuid) }}">
                 <i class="menu-icon mdi mdi-sitemap"></i>

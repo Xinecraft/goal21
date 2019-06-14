@@ -4,7 +4,7 @@
 
     @if(!Auth::user()->is_profile_completed || !Auth::user()->payment_confirmed)
     <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">Complete your profile & pay to get started!</h4>
+        <h4 class="alert-heading">Complete your KYC to get started!</h4>
         <p>Congrats! You have successfully registered with Goal21 Network. Before you can start referring people you need to follow the mandatory instructions:</p>
         <ul class="list-ticked">
             @if(!Auth::user()->is_profile_completed)
@@ -13,7 +13,7 @@
         </ul>
         <hr>
         @if(!Auth::user()->is_profile_completed)
-        <a href="{{ route('get.completeyourprofile') }}" class="btn btn-outline-danger">Complete your Profile <i class="mdi mdi-account-box-outline"></i>
+        <a href="{{ route('get.completeyourprofile') }}" class="btn btn-outline-danger">Complete your KYC <i class="mdi mdi-account-box-outline"></i>
         </a>
         @endif
     </div>
