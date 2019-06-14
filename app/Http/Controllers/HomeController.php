@@ -195,7 +195,7 @@ class HomeController extends Controller
 
         // SweetAlert
         alert()
-            ->success('Success!', "New Member has been added! You can add " . (4 - $request->user()->total_referrals) . " more members.")
+            ->success('Success!', "New Member has been added!")
             ->footer("<a href='" . route('dashboard') . "'>Go to Dashboard</a>")
             ->showConfirmButton()
             ->persistent();
