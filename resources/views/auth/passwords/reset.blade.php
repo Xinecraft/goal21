@@ -95,7 +95,7 @@
                             <a href="#">Terms</a>
                         </li>--}}
                     </ul>
-                    <p class="footer-text text-center">Copyright © 2018 HelpYuva. All rights reserved.</p>
+                    <p class="footer-text text-center">Copyright © 2018 Goal21. All rights reserved.</p>
                 </div>
             </div>
         </div>
