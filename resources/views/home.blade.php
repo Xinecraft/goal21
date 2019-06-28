@@ -71,7 +71,7 @@
                         <div class="float-right">
                             <p class="mb-0 text-right">Wallet</p>
                             <div class="fluid-container">
-                                <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->wallet }}</h3>
+                                <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->balanceFloat }}</h3>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
     </div>
 
     <hr>
-    <h3 class="title text-center text-primary">Your Top 4 Referrals</h3>
+    <h3 class="title text-center text-primary">Your Direct Referrals</h3>
     <div class="row">
         @forelse(Auth::user()->referrals as $referral)
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">

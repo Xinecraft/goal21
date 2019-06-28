@@ -18,31 +18,20 @@ class Payment extends Model
     /**
      * @var array
      */
-    protected $fillable = ['uuid', 'sender_id', 'receiver_id', 'payment_method', 'payment_data', 'payment_amount'];
+    protected $fillable = ['uuid', 'user_id', 'payment_method', 'payment_data', 'payment_amount', 'payment_txn_id', 'paid_at'];
 
-    // Who sent this payment
-    public function sender()
+    // Who is owner of this payput
+    public function user()
     {
-        return $this->belongsTo('App\User','sender_id');
+        return $this->belongsTo('App\User');
     }
 
-    // Who sent this payment
-    public function receiver()
-    {
-        return $this->belongsTo('App\User','receiver_id');
-    }
-
-    public function scopePaid($query)
+    public function scopePending($query)
     {
         return $query->where('payment_status', 0);
     }
-    public function scopeVerified($query)
+    public function scopePaid($query)
     {
         return $query->where('payment_status', 1);
-    }
-
-    public function scopePaidorverified($query)
-    {
-        return $query->where('payment_status', '>=', 0);
     }
 }

@@ -2,15 +2,18 @@
 
 namespace App;
 
+use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Interfaces\WalletFloat;
+use Bavix\Wallet\Traits\HasWalletFloat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, HasWalletFloat;
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +38,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'kyc_request_at', 'kyc_approved_at'];
 
     /**
      * @return mixed
@@ -74,17 +77,9 @@ class User extends Authenticatable implements JWTSubject
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payments_send()
+    public function payments()
     {
-        return $this->hasMany('App\Payment', 'sender_id')->with('receiver');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function payments_received()
-    {
-        return $this->hasMany('App\Payment', 'receiver_id')->with('sender');
+        return $this->hasMany('App\Payment');
     }
 
     /**

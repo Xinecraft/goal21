@@ -46,7 +46,7 @@ class PaymentSent extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)->markdown('emails.notifications.paymentpendingapproval', ['payment' => $this->payment])
-            ->subject('Payment Received from '.$this->payment->sender->full_name);
+            ->subject('Payment Received from '.$this->payment->user->full_name);
     }
 
     /**
@@ -60,8 +60,8 @@ class PaymentSent extends Notification
         return [
             'payment_id' => $this->payment->id,
             'payment_amount' => $this->payment->payment_amount,
-            'payment_sender_name' => $this->payment->sender->full_name,
-            'payment_sender_username' => $this->payment->sender->username,
+            'payment_user_name' => $this->payment->user->full_name,
+            'payment_user_username' => $this->payment->user->username,
         ];
     }
 }

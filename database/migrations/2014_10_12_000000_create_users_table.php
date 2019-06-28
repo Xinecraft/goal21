@@ -60,10 +60,18 @@ class CreateUsersTable extends Migration
             $table->integer('total_videos_seen')->default(0);
 
             $table->double('total_income')->default(0);
-            $table->double('wallet')->default(0);
             $table->boolean('payment_confirmed')->default(false);
             $table->double('payment_amount')->default(0);
             $table->dateTime('activated_at')->nullable();
+
+            $table->string('aadhaarid')->nullable();
+            $table->string('pancard_photo')->nullable();
+            $table->string('aadhaar_photo')->nullable();
+            $table->string('bank_account_photo')->nullable();
+            $table->smallInteger('is_kyc')->default(-1);
+            $table->dateTime('kyc_request_at')->nullable();
+            $table->dateTime('kyc_approved_at')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

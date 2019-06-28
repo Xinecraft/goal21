@@ -25,24 +25,49 @@
                 @endif
             </div>
         </li>
+        @if(Auth::user()->isAdmin())
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#more" aria-expanded="false" aria-controls="more">
+                    <i class="menu-icon mdi mdi-flash-circle"></i>
+                    <span class="menu-title">Admin Section</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="more">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.get.listtask') }}">View Tasks </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.get.createtask') }}">Add New Tasks </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard/coming-soon">View Users </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.get.kyclist') }}">View KYCs </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard') }}">
                 <i class="menu-icon mdi mdi-television"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        {{--<li class="nav-item">
-            <a class="nav-link" href="{{ route('get.recvpayments') }}">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('get.transactions') }}">
                 <i class="menu-icon mdi mdi-cash-multiple"></i>
-                <span class="menu-title">Received Payments</span>
+                <span class="menu-title">Transactions/Wallet</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('get.paytodata') }}">
+            <a class="nav-link" href="{{ route('get.withdrawrequests') }}">
                 <i class="menu-icon mdi mdi-send"></i>
-                <span class="menu-title">Sent Payments</span>
+                <span class="menu-title">Withdraw Requests</span>
             </a>
-        </li>--}}
+        </li>
         @if(!Auth::user()->is_profile_completed)
         <li class="nav-item">
             <a class="nav-link" href="{{ route('get.completeyourprofile') }}">
@@ -101,30 +126,6 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#more" aria-expanded="false" aria-controls="more">
-                <i class="menu-icon mdi mdi-flash-circle"></i>
-                <span class="menu-title">More Stuffs</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="more">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/coming-soon">Donations </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/coming-soon">Advertisements </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/coming-soon">Play2Win </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/coming-soon">Bonus Stuffs </a>
-                    </li>
-                </ul>
-            </div>
         </li>
     </ul>
 </nav>

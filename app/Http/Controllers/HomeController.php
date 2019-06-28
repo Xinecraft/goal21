@@ -117,6 +117,8 @@ class HomeController extends Controller
         $user->bank_account_type = $bank_account_type;
         $user->bank_account_ifsc = $bank_ifsc_code;
         $user->is_profile_completed = true;
+        $user->is_kyc = 0;
+        $user->kyc_request_at = Carbon::now();
 
         /**
          * Check if payment_confirmed == true and if yes then mark user as Active.
@@ -129,7 +131,7 @@ class HomeController extends Controller
 
         // Try saving User and Respond
         if ($user->save()) {
-            toast('Your Profile has been updated!', 'success', 'top-right')->autoClose(5000);
+            toast('Your Profile & KYC has been updated!', 'success', 'top-right')->autoClose(5000);
             return redirect()->route('dashboard');
         } else {
             toast('There are some Unknown Error. Contact Admin or Raise a ticket.', 'error', 'top-right')->autoClose(10000);
@@ -208,10 +210,11 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getViewPayToData(Request $request)
+    public function getTransactions(Request $request)
     {
-        $payTo = $request->user()->payments_send()->orderBy('payment_status')->get();
-        return view('dashboard.paytodata')->with('payTo', $payTo);
+        //$request->user()->withdrawFloat(11.50, ['desc' => 'For Site Kakamora', 'txn_id' => 'KJSHDF453455KJHKF']);
+        $transactions = $request->user()->transactions()->latest()->paginate(25);
+        return view('dashboard.transactions')->with('transactions', $transactions);
     }
 
 
@@ -222,28 +225,24 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function getViewPayToDataForm($uuid, Request $request)
+    public function getViewWithdrawRequestForm(Request $request)
     {
-        $paymentData = Payment::whereUuid($uuid)->firstOrFail();
-
-        if ($paymentData->sender_id != $request->user()->id || $paymentData->receiver->is_banned) {
-            alert()->error('Error!', 'Some error occurred. Please Contact Admin')->autoClose(5000);
-            return redirect()->back();
-        }
-        if ($paymentData->payment_status >= 0) {
-            alert()->error('Error!', 'You cannot resubmit that payment status at this time. Contact admin for help.')->autoClose(5000);
+        if (!$request->user()->is_kyc) {
+            alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
             return redirect()->back();
         }
 
         $selector = [];
-        if ($paymentData->receiver->bank_account_number)
+        if ($request->user()->bank_account_number)
             $selector = array_add($selector, 'BANK', 'Bank Account');
-        if ($paymentData->receiver->paytm_number)
+        if ($request->user()->paytm_number)
             $selector = array_add($selector, 'PAYTM', 'PAYTM Number');
-        if ($paymentData->receiver->upi_id)
+        if ($request->user()->upi_id)
             $selector = array_add($selector, 'UPI', 'UPI ID');
 
-        return view('dashboard.paytodataform')->with('pay', $paymentData)->with('selector', $selector);
+        $paymentAmountOptions = [500 => '₹500',1000 => '₹1000',2000 => '₹2000',5000 => '₹5000',10000 => '₹10,000',15000 => '₹15,000',20000 => '₹20,000',30000 => '₹30,000',40000 => '₹40,000',50000 => '₹50,000'];
+
+        return view('dashboard.withdrawrequestform')->with('selector', $selector)->with('paymentAmountOptions', $paymentAmountOptions);
     }
 
 
@@ -254,18 +253,11 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postViewPayToDataForm($uuid, Request $request)
+    public function postViewWithdrawRequestForm(Request $request)
     {
-        $paymentData = Payment::whereUuid($uuid)->firstOrFail();
-
-        // Cross Check if requester is the owner. Dont allow if receiver is banned
-        if ($paymentData->sender_id != $request->user()->id || $paymentData->receiver->is_banned) {
-            alert()->error('Error!', 'Some error occurred. Please Contact Admin')->autoClose(5000);
-            return redirect()->back()->withInput();
-        }
-        if ($paymentData->payment_status >= 0) {
-            alert()->error('Error!', 'You cannot resubmit that payment status at this time. Contact admin for help.')->autoClose(5000);
-            return redirect()->back()->withInput();
+        if (!$request->user()->is_kyc) {
+            alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
+            return redirect()->back();
         }
 
         // Validate Form
@@ -274,25 +266,31 @@ class HomeController extends Controller
                 'required',
                 Rule::in(['BANK', 'PAYTM', 'UPI']),
             ],
-            'txn_id' => 'required|string|min:1|max:200',
+            'payment_amount' => 'required|in:500,1000,2000,5000,10000,15000,20000,30000,40000,50000',
         ]);
+
+        // Amount must be smaller than wallet balance
+        if ($request->payment_amount > $request->user()->balanceFloat) {
+            alert()->error('Error!', 'Please choose amount less than or equal to your Wallet balance')->autoClose(5000);
+            return redirect()->back();
+        }
 
         // One more cross check for payment method validation against malicious users.
         switch ($validatedData['payment_method']) {
             case "PAYTM":
-                if ($paymentData->receiver->paytm_number == null) {
+                if ($request->user()->paytm_number == null) {
                     alert()->error('Error!', 'Dangerous activity detected! Incident will be reported to admin.')->autoClose(10000);
                     return redirect()->back();
                 }
                 break;
             case "UPI":
-                if ($paymentData->receiver->upi_id == null) {
+                if ($request->user()->upi_id == null) {
                     alert()->error('Error!', 'Dangerous activity detected! Incident will be reported to admin.')->autoClose(10000);
                     return redirect()->back();
                 }
                 break;
             case "BANK":
-                if ($paymentData->receiver->bank_account_number == null) {
+                if ($request->user()->bank_account_number == null) {
                     alert()->error('Error!', 'Dangerous activity detected! Incident will be reported to admin.')->autoClose(10000);
                     return redirect()->back();
                 }
@@ -300,29 +298,34 @@ class HomeController extends Controller
             default:
         }
 
-        // Update Payment Data
-        $paymentData->payment_txn_id = $validatedData['txn_id'];
-        $paymentData->paid_at = Carbon::now();
-        $paymentData->payment_method = $validatedData['payment_method'];
-        $paymentData->payment_data = $paymentData->receiver->paytextdata;
-        $paymentData->payment_status = 0;
-        $paymentData->save();
+        // Create Payment Data
+        $createArray = [
+            'uuid' => \Uuid::generate(4),
+            'user_id' => $request->user()->id,
+            'payment_method' => $request->payment_method,
+            'payment_data' => $request->user()->paytextdata,
+            'payment_amount' => $request->payment_amount
+        ];
+        $paymentData = Payment::create($createArray);
+
+        // Remove that amount from Wallet.
+        $request->user()->withdrawFloat($request->payment_amount, ['desc' => 'Withdraw Request ID: '.$paymentData->id, 'txn_id' => strtoupper(str_random(16)) ]);
 
         // Notification to receiver that payment is done and need verification.
-        $paymentData->receiver->notify(new PaymentSent($paymentData));
+        //$request->user()->notify(new PaymentSent($paymentData));
 
-        alert()->toast("Payment updated & sent to receiver for verification.", 'success')->autoClose(10000);
-        return redirect()->route('get.paytodata');
+        alert()->toast("Withdraw request has been created and sent to administrator.", 'success')->autoClose(10000);
+        return redirect()->route('get.withdrawrequest');
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getViewReceivedPayments(Request $request)
+    public function getViewWithdrawRequests(Request $request)
     {
-        $payments = $request->user()->payments_received()->paidorverified()->orderBy('payment_status','ASC')->latest()->paginate(10);
-        return view('dashboard.receivedpayments')->with('payments',$payments);
+        $payments = $request->user()->payments()->latest()->paginate(10);
+        return view('dashboard.withdrawrequests')->with('payments',$payments);
     }
 
     /**

@@ -8,6 +8,7 @@
         "php": "^7.1.3",
         "anhskohbo/no-captcha": "^3.0",
         "barryvdh/laravel-cors": "^0.11.3",
+        "bavix/laravel-wallet": "^3.0",
         "doctrine/dbal": "^2.8",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",

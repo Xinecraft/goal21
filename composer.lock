@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02919e99153a540ad1897bb94eeb9561",
+    "content-hash": "07e0c1ab278475f70b305348d250846d",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -178,6 +178,71 @@
                 "laravel"
             ],
             "time": "2019-02-26T18:08:30+00:00"
+        },
+        {
+            "name": "bavix/laravel-wallet",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bavix/laravel-wallet.git",
+                "reference": "53fffc0e7045055b62f6dfbe3074c09fe0031f10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bavix/laravel-wallet/zipball/53fffc0e7045055b62f6dfbe3074c09fe0031f10",
+                "reference": "53fffc0e7045055b62f6dfbe3074c09fe0031f10",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.8",
+                "illuminate/database": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|~5.9.0",
+                "nesbot/carbon": "^1.20|^2.0",
+                "php": "^7.1",
+                "ramsey/uuid": "^3.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.7",
+                "phpstan/phpstan": "^0.11.7",
+                "phpunit/phpunit": "^7.5|^8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bavix\\Wallet\\WalletServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bavix\\Wallet\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Babichev Maxim",
+                    "email": "info@babichev.net"
+                }
+            ],
+            "description": "Easy work with virtual wallet.",
+            "homepage": "https://github.com/bavix/laravel-wallet",
+            "keywords": [
+                "bavix",
+                "credits",
+                "currency",
+                "laravel",
+                "laravel-wallet",
+                "laravel5",
+                "laravel5-package",
+                "payments",
+                "virtual",
+                "wallet"
+            ],
+            "time": "2019-06-17T20:11:01+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

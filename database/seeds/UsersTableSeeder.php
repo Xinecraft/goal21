@@ -40,7 +40,10 @@ class UsersTableSeeder extends Seeder
                 'activated_at' => \Carbon\Carbon::now(),
                 'payment_confirmed' => true,
 				'created_at' => \Carbon\Carbon::now(),
-                'user_role' => 101
+                'user_role' => 101,
+                'is_kyc' => 1,
+                'kyc_request_at' => \Carbon\Carbon::now(),
+                'kyc_approved_at' => \Carbon\Carbon::now()
             ]
         ]);
     }
