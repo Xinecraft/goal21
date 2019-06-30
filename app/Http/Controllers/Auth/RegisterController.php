@@ -98,7 +98,7 @@ class RegisterController extends Controller
             'dob' => $data['dob'],
             'referral_user_id' => $ref_user,
             'last_login_ip' => Request::ip(),
-            'payment_confirmed' => true
+            'status' => 1
         ]);
 
         if ($data['referral_user']) {
@@ -127,8 +127,8 @@ class RegisterController extends Controller
         // If Referral User is not allowed to have referrals.
         if ($request->referral_user) {
             $rfu = User::whereUsername($request->referral_user)->first();
-            if ($rfu == null || $rfu->is_banned || !$rfu->is_profile_completed || $rfu->status < 1) {
-                alert()->error('Referral User Inactive!', 'The referral username you trying to enter has either not completed his profile or banned.')->showConfirmButton('Ok', '#e65251')->autoClose(20000);
+            if ($rfu == null || $rfu->is_banned || $rfu->status < 1) {
+                alert()->error('Referral User Inactive!', 'The referral username is not allowed to have referrals')->showConfirmButton('Ok', '#e65251')->autoClose(20000);
                 return back()->withInput();
             }
         }
@@ -142,6 +142,7 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
+        alert()->success('IMPORTANT!', 'Please note down your Username: '. $user->username. '. It will be used while login as well as you need to share it with others as your Referral Code.')->showConfirmButton('Done', '#007bff')->autoClose(170000);
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }

@@ -8,9 +8,17 @@
             <div class="card-body">
                 <a href="{{ route('get.withdrawrequest') }}" class="btn btn-success btn-sm payedbutton float-right"><i class="mdi mdi-check"></i>Make Withdraw Request</a>
                 <h4 class="card-title">WITHDRAW REQUEST HISTORY</h4>
-                <p class="card-description text-info font-weight-semibold">
-                    Your Wallet Balance is ₹{{ auth()->user()->balanceFloat }}.
-                </p>
+                <span class="card-description text-success">
+                    Final Wallet Balance: ₹{{ auth()->user()->balanceFloat }}.
+                </span>
+                &nbsp;&nbsp;
+                <span class="card-description text-warning">
+                    Wallet One Balance: ₹{{ auth()->user()->wallet_one }}.
+                </span>
+                &nbsp;&nbsp;
+                <span class="card-description text-info">
+                    Wallet Two Balance: ₹{{ auth()->user()->wallet_two }}.
+                </span>
                 @if($payments->total() > 0)
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">

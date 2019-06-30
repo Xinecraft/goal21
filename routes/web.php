@@ -59,11 +59,20 @@ Route::group(['prefix' => 'dashboard/admin'], function(){
     Route::get('kyc/{username}', 'AdminController@getKYCDetail')->name('admin.get.kycdetail');
     Route::post('kyc/{username}', 'AdminController@postActionOnKYC')->name('admin.post.kycdetail');
 
-    Route::get('tasks/', 'AdminController@getListTask')->name('admin.get.listtask');
+    Route::get('tasks/', 'AdminController@getListTasks')->name('admin.get.listtask');
+    Route::get('gettasks/', 'AdminController@anyListTasks')->name('admin.any.listtask');
     Route::get('task/{uuid}/edit', 'AdminController@getEditTask')->name('admin.get.edittask');
     Route::post('task/{uuid}/edit', 'AdminController@postEditTask')->name('admin.post.edittask');
     Route::get('tasks/create', 'AdminController@getCreateTask')->name('admin.get.createtask');
     Route::post('tasks/create', 'AdminController@postCreateTask')->name('admin.post.createtask');
+
+    Route::get('users/', 'AdminController@getListUsers')->name('admin.get.listusers');
+    Route::any('getusers/', 'AdminController@anyListUsers')->name('admin.any.listusers');
+    Route::get('user/{username}', 'AdminController@getListUsers')->name('admin.get.viewuser');
+    Route::get('user/{username}/edit', 'AdminController@getListUsers')->name('admin.get.edituser');
+
+    Route::get('site-settings', 'AdminController@getSiteSettings')->name('admin.get.sitesettings');
+    Route::post('site-settings', 'AdminController@postSiteSettings')->name('admin.post.sitesettings');
 });
 
 Route::get('/test', function()

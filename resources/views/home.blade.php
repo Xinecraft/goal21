@@ -5,10 +5,10 @@
     @if(!Auth::user()->is_profile_completed || !Auth::user()->payment_confirmed)
     <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">Complete your KYC to get started!</h4>
-        <p>Congrats! You have successfully registered with Goal21 Network. Before you can start referring people you need to follow the mandatory instructions:</p>
+        <p>Congrats! You have successfully registered with Goal21 Network. Complete Profile & KYC now to start earning!</p>
         <ul class="list-ticked">
             @if(!Auth::user()->is_profile_completed)
-            <li>Complete your profile by adding your payment preferences.</li>
+            <li>Complete KYC.</li>
             @endif
         </ul>
         <hr>
@@ -21,6 +21,7 @@
 
     {{--Dashboard OverView--}}
     <div class="row">
+        <marquee behavior="" direction=""><h4 class="text-danger">{{ \App\SiteSetting::getSetting('dashboard_marquee_1') }}</h4></marquee>
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
             <div class="card card-statistics">
                 <div class="card-body">
@@ -76,7 +77,7 @@
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Money in wallet
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Wallet One: ₹{{ Auth::user()->wallet_one }} - Wallet Two: ₹{{ Auth::user()->wallet_two }}
                     </p>
                 </div>
             </div>
@@ -146,5 +147,21 @@
                     </div>
                 </div>
         @endfor
+    </div>
+
+    <div class="row col-sm-12">
+        <div class="panel card" style="padding: 10px">
+            <p>
+                {!! nl2br(App\SiteSetting::getSetting('dashboard_filler_1')) !!}
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="row col-sm-12">
+        <div class="panel card" style="padding: 10px">
+            <p>
+                {!! nl2br(App\SiteSetting::getSetting('dashboard_filler_2')) !!}
+            </p>
+        </div>
     </div>
 @endsection

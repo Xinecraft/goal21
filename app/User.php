@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
      * @var array
      */
     protected $fillable = [
-        'full_name', 'email', 'password', 'uuid', 'username', 'gender', 'dob', 'last_login_ip', 'phone_number', 'referral_user_id', 'payment_amount', 'payment_confirmed'
+        'full_name', 'email', 'password', 'uuid', 'username', 'gender', 'dob', 'last_login_ip', 'phone_number', 'referral_user_id', 'payment_amount', 'payment_confirmed', 'status'
     ];
 
     /**
@@ -175,5 +175,13 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
         if ($this->user_role > 50)
             return true;
         return false;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Task')->withPivot('status')->withTimestamps();
     }
 }

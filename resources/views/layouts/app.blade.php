@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="/vendors/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     <!-- endinject -->
     <!-- plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -22,6 +23,7 @@
 
     <script src="/vendors/js/vendor.bundle.base.js"></script>
     <script src="/vendors/js/vendor.bundle.addons.js"></script>
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript">
         $.ajaxSetup({
@@ -71,27 +73,5 @@
 <!-- endinject -->
 <!-- Custom js for this page-->
 <!-- End custom js for this page-->
-@auth
-    <script>
-        window.fcWidget.init({
-            token: "5c782f8a-ede7-4b73-a3da-9a7575018326",
-            host: "https://wchat.freshchat.com",
-            externalId: "{{ Auth::user()->username }}",     // user’s id unique to your system
-            firstName: "{{ Auth::user()->full_name }}",              // user’s first name
-            email: "{{ Auth::user()->email }}",    // user’s email address
-            phone: "{{ Auth::user()->phone_number }}",            // phone number without country code
-            phoneCountryCode: "+91"          // phone’s country code
-        });
-        window.fcWidget.user.setProperties({
-            "Status": "{{ Auth::user()->status ? "Active" : "Inactive" }}",
-            "Payment": "{{ Auth::user()->payment_confirmed ? "Done" : "Not Done" }}",
-            "Profile": "{{ Auth::user()->is_profile_completed ? "Completed" : "Not Completed" }}",
-            "Income": "₹ {{ Auth::user()->total_income }}",
-            "Referred by": "{{ Auth::user()->referredby ? Auth::user()->referredby->username." (".Auth::user()->referredby->full_name.")" : "" }}"
-        });
-    </script>
-@elseauth
-    
-@endauth
 </body>
 </html>

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\SiteSetting;
 use App\Task;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Uuid;
+use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
@@ -84,6 +86,26 @@ class AdminController extends Controller
 
     }
 
+    public function getListTasks()
+    {
+        return view('admin.listtasks');
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function anyListTasks()
+    {
+        $tasks = Task::select(['id', 'type', 'link', 'wait_in_seconds', 'credit_inr', 'description', 'uuid']);
+
+        return Datatables::of($tasks)
+            ->addColumn('action', function ($task) {
+                return '<a href="' . route('admin.get.edittask',$task->uuid)  . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';})
+            ->editColumn('id', 'ID: {{$id}}')
+            ->make(true);
+    }
+
     public function getCreateTask()
     {
         return view('admin.createtask');
@@ -120,7 +142,7 @@ class AdminController extends Controller
         return view('admin.edittask')->with('task', $task);
     }
 
-    public function postEditTask($uuid,TaskRequest $request)
+    public function postEditTask($uuid, TaskRequest $request)
     {
         $description = $request->description ? $request->description : null;
         $task = Task::whereUuid($uuid)->firstOrFail();
@@ -143,5 +165,45 @@ class AdminController extends Controller
             toast('There are some Unknown Error. ', 'error', 'top-right')->autoClose(10000);
             return redirect()->back()->withErrors(['error' => 'Unknown Error. Contact Dev'])->withInput();
         }
+    }
+
+    public function getSiteSettings()
+    {
+        $sitesettings = SiteSetting::all();
+        return view('admin.sitesettings')->with(['sitesettings' => $sitesettings]);
+    }
+
+    public function postSiteSettings(Request $request)
+    {
+        $sitesettings = $request->all();
+        array_shift($sitesettings);
+        foreach ($sitesettings as $key => $value) {
+            SiteSetting::whereSetting($key)->update(['value' => $value]);
+        }
+        toast('Settings updated. ', 'success', 'top-right')->autoClose(10000);
+        return redirect()->back();
+    }
+
+    public function getListUsers()
+    {
+        return view('admin.listusers');
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function anyListUsers()
+    {
+        $users = User::select(['id', 'full_name', 'username', 'email', 'created_at', 'total_income', 'status']);
+
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+            return '<a href="' . route('admin.get.edituser',$user->username)  . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';})
+            ->editColumn('id', 'ID: {{$id}}')
+            ->addColumn('wallet', function (User $user) {
+                return $user->balanceFloat;
+            })
+            ->make(true);
     }
 }

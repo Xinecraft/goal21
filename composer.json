@@ -19,7 +19,8 @@
         "mccool/laravel-auto-presenter": "^7.1",
         "realrashid/sweet-alert": "^1.1",
         "tymon/jwt-auth": "dev-develop",
-        "webpatser/laravel-uuid": "^3.0"
+        "webpatser/laravel-uuid": "^3.0",
+        "yajra/laravel-datatables-oracle": "~8.13"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

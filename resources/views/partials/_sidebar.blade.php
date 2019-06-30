@@ -41,10 +41,13 @@
                             <a class="nav-link" href="{{ route('admin.get.createtask') }}">Add New Tasks </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard/coming-soon">View Users </a>
+                            <a class="nav-link" href="{{ route('admin.get.listusers') }}">View Users </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.get.kyclist') }}">View KYCs </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.get.sitesettings') }}">Site Settings </a>
                         </li>
                     </ul>
                 </div>
@@ -56,6 +59,14 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        @if(!Auth::user()->is_profile_completed)
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('get.completeyourprofile') }}">
+                    <i class="menu-icon mdi mdi-account-check"></i>
+                    <span class="menu-title">Complete KYC</span>
+                </a>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" href="{{ route('get.transactions') }}">
                 <i class="menu-icon mdi mdi-cash-multiple"></i>
@@ -68,14 +79,6 @@
                 <span class="menu-title">Withdraw Requests</span>
             </a>
         </li>
-        @if(!Auth::user()->is_profile_completed)
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('get.completeyourprofile') }}">
-                <i class="menu-icon mdi mdi-send"></i>
-                <span class="menu-title">Complete KYC</span>
-            </a>
-        </li>
-        @endif
         <li class="nav-item">
             <a class="nav-link" href="{{ route('get.userdetails',Auth::user()->uuid) }}">
                 <i class="menu-icon mdi mdi-sitemap"></i>

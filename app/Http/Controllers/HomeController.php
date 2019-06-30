@@ -185,7 +185,7 @@ class HomeController extends Controller
             'dob' => $request->dob,
             'referral_user_id' => $ref_user,
             'payment_amount' => 0,
-            'payment_confirmed' => true
+            'status' => 1
         ]);
 
         // Increment total referrals to +1 for the referrer
@@ -227,7 +227,7 @@ class HomeController extends Controller
      */
     public function getViewWithdrawRequestForm(Request $request)
     {
-        if (!$request->user()->is_kyc) {
+        if (!$request->user()->is_kyc <= 0) {
             alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
             return redirect()->back();
         }
@@ -463,7 +463,7 @@ class HomeController extends Controller
     {
         if(!$request->user()->is_profile_completed)
         {
-            alert()->error('User not Active!', 'Please activate your user first');
+            alert()->error('User not Active!', 'Please go ahead and complete KYC to enable Edit Option');
             return redirect()->route('dashboard');
         }
         return view('dashboard.editprofile')->with('user', $request->user());

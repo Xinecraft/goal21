@@ -60,6 +60,8 @@ class CreateUsersTable extends Migration
             $table->integer('total_videos_seen')->default(0);
 
             $table->double('total_income')->default(0);
+            $table->double('wallet_one')->default(0);
+            $table->double('wallet_two')->default(0);
             $table->boolean('payment_confirmed')->default(false);
             $table->double('payment_amount')->default(0);
             $table->dateTime('activated_at')->nullable();
