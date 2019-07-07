@@ -10,9 +10,14 @@ use App\Notifications\PaymentDeclined;
 use App\Notifications\PaymentSent;
 use App\Notifications\PaymentVerified;
 use App\Payment;
+use App\SiteSetting;
+use App\Task;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Uuid;
@@ -29,14 +34,28 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    protected function paginateCollection($items, $perPage = 2, $page = null)
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => 'page',
+        ]);
+    }
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $tasks = Task::count();
+        $completedTasks = $request->user()->tasks()->count();
+        $pendingTasks = $tasks - $completedTasks;
+
+        return view('home')->with(['completed_tasks_count' => $completedTasks, 'pending_tasks_count' => $pendingTasks]);
     }
 
     /**
@@ -54,12 +73,23 @@ class HomeController extends Controller
             alert()->warning('Already Done!','You have already completed that. Visit Edit Profile section to make any changes.');
             return redirect()->route('dashboard');
         }
+        if (SiteSetting::getSetting('kyc_request_status') == 'no')
+        {
+            alert()->error('KYC Request Closed!','We are not accepted KYC Request right now. Please try again later.');
+            return redirect()->route('dashboard');
+        }
 
         return view('dashboard.complete_profile');
     }
 
     public function postCompleteProfile(CompleteProfile $request)
     {
+        if (SiteSetting::getSetting('kyc_request_status') == 'no')
+        {
+            alert()->error('KYC Request Closed!','We are not accepted KYC Request right now. Please try again later.');
+            return redirect()->route('dashboard');
+        }
+
         $pancard = $request->pancard;
         $addr_line1 = $request->addr_line1;
         $addr_line2 = $request->addr_line2;
@@ -231,6 +261,11 @@ class HomeController extends Controller
             alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
             return redirect()->back();
         }
+        if (SiteSetting::getSetting('payout_request_status') == 'no')
+        {
+            alert()->error('Payout Request Closed!','We are not accepted Payout Request right now. Please try again later.');
+            return redirect()->route('dashboard');
+        }
 
         $selector = [];
         if ($request->user()->bank_account_number)
@@ -258,6 +293,11 @@ class HomeController extends Controller
         if (!$request->user()->is_kyc) {
             alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
             return redirect()->back();
+        }
+        if (SiteSetting::getSetting('payout_request_status') == 'no')
+        {
+            alert()->error('Payout Request Closed!','We are not accepted Payout Request right now. Please try again later.');
+            return redirect()->route('dashboard');
         }
 
         // Validate Form
@@ -560,5 +600,62 @@ class HomeController extends Controller
         $user = User::whereUuid($user)->firstOrFail();
 
         return view('dashboard.userdetails')->with('user', $user);
+    }
+
+    public function getGoListTasks()
+    {
+        return view('dashboard.golisttasks');
+    }
+
+    public function getListTasks(Request $request)
+    {
+        $tasks = Task::all();
+        $completedTasks = $request->user()->tasks;
+
+        $allTasks = $tasks->map(function($task) use ($completedTasks){
+            $task->completed = false;
+            if($completedTasks->contains($task))
+            {
+                $task->completed = true;
+            }
+            return $task;
+            });
+
+        $allTasks = $this->paginateCollection($allTasks,$perPage = 4, $page = null, $options = []);
+
+        return view('dashboard.listtasks')->with('tasks', $allTasks);
+    }
+
+    public function getViewTask($uuid, Request $request)
+    {
+        $task = Task::whereUuid($uuid)->firstorFail();
+        $completedTasks = $request->user()->tasks;
+        $task->completed = false;
+        if($completedTasks->contains($task))
+        {
+            $task->completed = true;
+        }
+        return view('dashboard.viewtask')->with('task', $task);
+    }
+
+    public function postViewTask($uuid, Request $request)
+    {
+        $user = $request->user();
+        $task = Task::whereUuid($uuid)->firstorFail();
+        $completedTasks = $user->tasks;
+        if($completedTasks->contains($task))
+        {
+            alert()->warning('Already Completed!','Your have already completed this Task')->showCancelButton('Close')->autoClose(5000);
+            return redirect()->route('get.golisttasks');
+        }
+        $user->tasks()->attach($task, ['status' => 1]);
+        $user->wallet_one += $task->credit_inr;
+        $user->save();
+
+        $task->total_impression += 1;
+        $task->save();
+
+        alert()->success('Congrats!','You have successfully completed the task')->showCancelButton('Close')->autoClose(5000);
+        return redirect()->route('get.golisttasks');
     }
 }

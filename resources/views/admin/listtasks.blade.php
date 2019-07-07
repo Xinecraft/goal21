@@ -36,7 +36,7 @@
                 ajax: '{!! route('admin.any.listtask') !!}',
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'type', name: 'type'},
+                    {data: 'type_name', name: 'type_name'},
                     {data: 'link', name: 'link'},
                     {data: 'wait_in_seconds', name: 'wait_in_seconds'},
                     {data: 'credit_inr', name: 'credit_inr'},

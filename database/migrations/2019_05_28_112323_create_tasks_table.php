@@ -16,7 +16,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('uuid');
-            $table->integer('type'); // 0 - apps download, 1 - videos , 2 - websites
+            $table->integer('type'); // 0 - apps download, 2 - videos , 1 - websites
             $table->string('link');
             $table->integer('wait_in_seconds')->nullable();
             $table->boolean('is_active')->default(true);

@@ -17,7 +17,7 @@
                             <th>Email</th>
                             <th>Status</th>
                             <th>Created At</th>
-                            <th>Wallet</th>
+                            <th>Wallet Main</th>
                             <th>Total Payout</th>
                             <th>Action</th>
                         </tr>

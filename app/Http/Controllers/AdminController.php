@@ -103,6 +103,9 @@ class AdminController extends Controller
             ->addColumn('action', function ($task) {
                 return '<a href="' . route('admin.get.edittask',$task->uuid)  . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';})
             ->editColumn('id', 'ID: {{$id}}')
+            ->addColumn('type_name', function ($task) {
+                return $task->type_name;
+            })
             ->make(true);
     }
 
@@ -195,7 +198,7 @@ class AdminController extends Controller
      */
     public function anyListUsers()
     {
-        $users = User::select(['id', 'full_name', 'username', 'email', 'created_at', 'total_income', 'status']);
+        $users = User::select(['id', 'full_name', 'username', 'email', 'created_at', 'total_income', 'status', 'wallet_one', 'wallet_two']);
 
         return Datatables::of($users)
             ->addColumn('action', function ($user) {

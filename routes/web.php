@@ -48,6 +48,12 @@ Route::group(['prefix' => 'dashboard'], function(){
     Route::get('edit-profile', 'HomeController@getEditProfile')->name('get.editprofile');
     Route::post('edit-profile', 'HomeController@postEditProfile')->name('post.editprofile');
 
+    Route::get('go-tasks', 'HomeController@getGoListTasks')->name('get.golisttasks');
+    Route::get('list-tasks', 'HomeController@getListTasks')->name('get.listtasks');
+    Route::get('tasks', 'HomeController@getListTasks')->name('get.listtasks');
+    Route::get('task/{uuid}', 'HomeController@getViewTask')->name('get.viewtask');
+    Route::post('task/{uuid}', 'HomeController@postViewTask')->name('post.viewtask');
+
     Route::get('member/{user}', 'HomeController@getUserDetails')->name('get.userdetails');
 
     Route::get('coming-soon', 'HomeController@getComingSoon')->name('get.comingsoon');

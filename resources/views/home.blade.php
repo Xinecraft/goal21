@@ -3,25 +3,28 @@
 @section('content')
 
     @if(!Auth::user()->is_profile_completed || !Auth::user()->payment_confirmed)
-    <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">Complete your KYC to get started!</h4>
-        <p>Congrats! You have successfully registered with Goal21 Network. Complete Profile & KYC now to start earning!</p>
-        <ul class="list-ticked">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Complete your KYC to get started!</h4>
+            <p>Congrats! You have successfully registered with Goal21 Network. Complete Profile & KYC now to start
+                earning!</p>
+            <ul class="list-ticked">
+                @if(!Auth::user()->is_profile_completed)
+                    <li>Complete KYC.</li>
+                @endif
+            </ul>
+            <hr>
             @if(!Auth::user()->is_profile_completed)
-            <li>Complete KYC.</li>
+                <a href="{{ route('get.completeyourprofile') }}" class="btn btn-outline-danger">Complete your KYC <i
+                            class="mdi mdi-account-box-outline"></i>
+                </a>
             @endif
-        </ul>
-        <hr>
-        @if(!Auth::user()->is_profile_completed)
-        <a href="{{ route('get.completeyourprofile') }}" class="btn btn-outline-danger">Complete your KYC <i class="mdi mdi-account-box-outline"></i>
-        </a>
-        @endif
-    </div>
+        </div>
     @endif
 
     {{--Dashboard OverView--}}
     <div class="row">
-        <marquee behavior="" direction=""><h4 class="text-danger">{{ \App\SiteSetting::getSetting('dashboard_marquee_1') }}</h4></marquee>
+        <marquee behavior="" direction=""><h4
+                    class="text-danger">{{ \App\SiteSetting::getSetting('dashboard_marquee_1') }}</h4></marquee>
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
             <div class="card card-statistics">
                 <div class="card-body">
@@ -30,7 +33,7 @@
                             <i class="mdi mdi-cash-100 text-success icon-lg"></i>
                         </div>
                         <div class="float-right">
-                            <p class="mb-0 text-right">Total Income</p>
+                            <p class="mb-0 text-right">Total Payouts</p>
                             <div class="fluid-container">
                                 <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->total_income }}</h3>
                             </div>
@@ -47,10 +50,70 @@
                 <div class="card-body">
                     <div class="clearfix">
                         <div class="float-left">
+                            <i class="mdi mdi-wallet text-danger icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Today Earnings</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->wallet_one }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0">
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Today's Earnings
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-wallet text-primary icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Credit Earnings</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->wallet_two }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0">
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Earning this month
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-wallet text-success icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Withdrawl Amount</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->balanceFloat }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0">
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Amount that can be withdrawn
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
                             <i class="mdi mdi-account-multiple-plus text-warning icon-lg"></i>
                         </div>
                         <div class="float-right">
-                            <p class="mb-0 text-right">Referrals</p>
+                            <p class="mb-0 text-right">My Direct</p>
                             <div class="fluid-container">
                                 <h3 class="font-weight-medium text-right mb-0">{{ Auth::user()->total_referrals }}</h3>
                             </div>
@@ -67,17 +130,17 @@
                 <div class="card-body">
                     <div class="clearfix">
                         <div class="float-left">
-                            <i class="mdi mdi-wallet text-danger icon-lg"></i>
+                            <i class="mdi mdi-account-multiple text-primary icon-lg"></i>
                         </div>
                         <div class="float-right">
-                            <p class="mb-0 text-right">Wallet</p>
+                            <p class="mb-0 text-right">My Total Team</p>
                             <div class="fluid-container">
-                                <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->balanceFloat }}</h3>
+                                <h3 class="font-weight-medium text-right mb-0">{{ Auth::user()->total_referrals }}</h3>
                             </div>
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Wallet One: ₹{{ Auth::user()->wallet_one }} - Wallet Two: ₹{{ Auth::user()->wallet_two }}
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Out of ∞ total
                     </p>
                 </div>
             </div>
@@ -87,17 +150,39 @@
                 <div class="card-body">
                     <div class="clearfix">
                         <div class="float-left">
-                            <i class="mdi mdi-calendar-clock text-info icon-lg"></i>
+                            <i class="mdi mdi-calendar-clock text-danger icon-lg"></i>
                         </div>
                         <div class="float-right">
-                            <p class="mb-0 text-right">Days Spent</p>
+                            <p class="mb-0 text-right">Pending Tasks</p>
                             <div class="fluid-container">
-                                <h3 class="font-weight-medium text-right mb-0">{{ Auth::user()->created_at->diffInDays() }} {{ str_plural('day',Auth::user()->created_at->diffInDays()) }}</h3>
+                                <h3 class="font-weight-medium text-right mb-0">{{ $pending_tasks_count }}</h3>
                             </div>
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Since registration
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> <a
+                                href="{{ route('get.golisttasks') }}">View Tasks</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-calendar-check text-info icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Completed Tasks</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0">{{ $completed_tasks_count }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0">
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> <a
+                                href="{{ route('get.golisttasks') }}">View Tasks</a>
                     </p>
                 </div>
             </div>
@@ -113,10 +198,12 @@
                     <div class="card-body">
                         <h4 class="card-title text-center">Referral User {{ $loop->iteration }}</h4>
                         <div class="media">
-                            <img style="margin-right: 5px;" class="img img-sm rounded-circle" src="{{ $referral->profile_photo }}" alt="DP">
+                            <img style="margin-right: 5px;" class="img img-sm rounded-circle"
+                                 src="{{ $referral->profile_photo }}" alt="DP">
                             <div class="media-body">
                                 <address>
-                                    <a href="{{ route('get.userdetails', $referral->uuid) }}"><p class="font-weight-bold">{{ $referral->username }}</p></a>
+                                    <a href="{{ route('get.userdetails', $referral->uuid) }}"><p
+                                                class="font-weight-bold">{{ $referral->username }}</p></a>
                                     <p>
                                         {{ $referral->full_name }}
                                     </p>
@@ -137,15 +224,16 @@
         @endforelse
 
         @for($i = 0; $i < (4 - Auth::user()->total_referrals); $i++)
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-                    <div class="card text-center">
-                        <div class="card-body" style="border: 2px dashed #e8d91a;">
-                            <h5 class="card-title">Empty Referral Slot</h5>
-                            <p class="card-text font-italic">This slot is empty. Start Adding People to Earn $.</p>
-                            <p class="card-text font-italic">Your Referral Code/Username is <b>{{ Auth::user()->username }}</b></p>
-                        </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+                <div class="card text-center">
+                    <div class="card-body" style="border: 2px dashed #e8d91a;">
+                        <h5 class="card-title">Empty Referral Slot</h5>
+                        <p class="card-text font-italic">This slot is empty. Start Adding People to Earn $.</p>
+                        <p class="card-text font-italic">Your Referral Code/Username is
+                            <b>{{ Auth::user()->username }}</b></p>
                     </div>
                 </div>
+            </div>
         @endfor
     </div>
 

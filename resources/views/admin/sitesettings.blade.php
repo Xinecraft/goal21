@@ -21,9 +21,9 @@
                 {{ Form::open() }}
                 @foreach($sitesettings as $setting)
                 <div class="form-group row">
-                    <label for="description" class="col-md-3 col-form-label text-md-right">{{ $setting->setting_display }}</label>
+                    <label for="{{ $setting->setting }}" class="col-md-3 col-form-label text-md-right">{{ $setting->setting_display }}</label>
                     <div class="col-md-7">
-                        <textarea class="form-control" placeholder="Any description here if any..." name="{{ $setting->setting }}" id="description" cols="30" rows="5">{!! $setting->value !!}</textarea>
+                        <textarea class="form-control" placeholder="Any description here if any..." name="{{ $setting->setting }}" id="{{ $setting->setting }}" cols="30" rows="5">{!! $setting->value !!}</textarea>
                     </div>
                 </div>
                 @endforeach

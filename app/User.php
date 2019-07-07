@@ -180,7 +180,7 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users()
+    public function tasks()
     {
         return $this->belongsToMany('App\Task')->withPivot('status')->withTimestamps();
     }

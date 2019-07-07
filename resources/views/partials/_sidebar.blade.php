@@ -68,6 +68,12 @@
             </li>
         @endif
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('get.golisttasks') }}">
+                <i class="menu-icon mdi mdi-book-multiple"></i>
+                <span class="menu-title">Daily Tasks</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('get.transactions') }}">
                 <i class="menu-icon mdi mdi-cash-multiple"></i>
                 <span class="menu-title">Transactions/Wallet</span>
