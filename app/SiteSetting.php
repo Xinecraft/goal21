@@ -16,6 +16,8 @@ class SiteSetting extends Model
      */
     public static function getSetting($setting)
     {
-        return static::whereSetting($setting)->first()->value;
+        if($data = static::whereSetting($setting)->first())
+            return $data->value;
+        return '';
     }
 }

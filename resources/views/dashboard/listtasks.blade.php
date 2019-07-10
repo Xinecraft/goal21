@@ -73,4 +73,13 @@
     <div class="pull-right">
         {{ $tasks->render() }}
     </div>
+
+    <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8 grid-margin">
+            <img src="{{ \App\SiteSetting::getSetting('listtask_ad_banner_1') }}" alt="" class="img img-responsive">
+        </div>
+        <div class="col-md-4 grid-margin">
+            <img src="{{ \App\SiteSetting::getSetting('listtask_ad_banner_2') }}" alt="" class="img img-responsive">
+        </div>
+    </div>
 @endsection

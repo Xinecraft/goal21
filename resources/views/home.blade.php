@@ -189,6 +189,22 @@
         </div>
     </div>
 
+
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin">
+            <img src="{{ \App\SiteSetting::getSetting('dashboard_ad_banner_1') }}" alt="" class="img img-responsive">
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin">
+            <img src="{{ \App\SiteSetting::getSetting('dashboard_ad_banner_2') }}" alt="" class="img img-responsive">
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin">
+            <img src="{{ \App\SiteSetting::getSetting('dashboard_ad_banner_3') }}" alt="" class="img img-responsive">
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin">
+            <img src="{{ \App\SiteSetting::getSetting('dashboard_ad_banner_4') }}" alt="" class="img img-responsive">
+        </div>
+    </div>
+
     <hr>
     <h3 class="title text-center text-primary">Your Direct Referrals</h3>
     <div class="row">
