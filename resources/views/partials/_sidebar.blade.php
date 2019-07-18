@@ -9,20 +9,26 @@
                     <div class="text-wrapper">
                         <p class="profile-name">{{ Auth::user()->full_name }}</p>
                         <div>
-                            <small class="designation text-muted">{{ Auth::user()->username }}</small>
+                            <small class="designation text-muted" data-toggle="tooltip" title="Remember It! Your Username as well as your Referral Code">{{ Auth::user()->username }}</small>
                             @if(Auth::user()->status)
                                 <span data-toggle="tooltip" title="Active" class="status-indicator online"></span>
                             @else
                                 <span data-toggle="tooltip" title="Inactive" class="status-indicator text-danger"></span>
                             @endif
                         </div>
+                        <br>
+                        @if(Auth::user()->payment_confirmed == 1)
+                        <small class="text-success" data-toggle="tooltip" title="Congrats! You have successfully upgrade this account to Premium">Premium Account</small>
+                        @else
+                        <small class="text-warning" data-toggle="tooltip" title="Warning! You are using Free Account. Try upgrading for just INR 149 to get full benefits.">Free Account</small>
+                        @endif
                     </div>
                 </div>
-                @if(Auth::user()->isAdmin())
+                {{--@if(Auth::user()->isAdmin())
                 <a href="{{ route('get.addmember') }}" class="btn btn-inverse-success btn-block">Add Member
                     <i class="mdi mdi-plus"></i>
                 </a>
-                @endif
+                @endif--}}
             </div>
         </li>
         @if(Auth::user()->isAdmin())
@@ -45,6 +51,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.get.kyclist') }}">View KYCs </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.get.listpaymentapprovals') }}">Approve Payments</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.get.sitesettings') }}">Site Settings </a>
@@ -85,6 +94,16 @@
                 <span class="menu-title">Withdraw Requests</span>
             </a>
         </li>
+
+        @if(auth()->user()->payment_confirmed < 0)
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('get.applyforpremium') }}">
+                <i class="menu-icon mdi mdi-star"></i>
+                <span class="menu-title">Upgrade Account</span>
+            </a>
+        </li>
+        @endif
+
         <li class="nav-item">
             <a class="nav-link" href="{{ route('get.userdetails',Auth::user()->uuid) }}">
                 <i class="menu-icon mdi mdi-sitemap"></i>

@@ -134,7 +134,7 @@
                                         <strong>{{ $errors->first('referral_user') }}</strong>
                                     </span>
                                     @else
-                                        <small id="referralHelp" class="form-text text-muted">Enter username of user who referred you.</small>
+                                        <small id="referralHelp" class="form-text text-muted">Enter username of user who referred you. You must have a Username, If you don't plz go to Social media and search Goal21. You will find many.</small>
                                     @endif
                                 </div>
                             </div>

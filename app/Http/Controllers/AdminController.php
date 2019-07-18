@@ -209,4 +209,41 @@ class AdminController extends Controller
             })
             ->make(true);
     }
+
+    public function getListPaymentApprovals(Request $request)
+    {
+        $users = User::where('payment_confirmed', 0)->paginate();
+
+        return view('admin.listpendingpayments')->with('paymentUsers', $users);
+    }
+
+    public function postApprovePayment($username, Request $request)
+    {
+        $user = User::whereUsername($username)->firstOrFail();
+
+        $user->payment_confirmed = 1;
+        $user->activated_at = now();
+        $user->save();
+
+        \File::delete(storage_path('app/public/').$user->payment_screenshot);
+
+        toast('Payment Approved. ', 'success', 'top-right')->autoClose(10000);
+        return redirect()->back();
+    }
+
+    public function deleteRejectPayment($username, Request $request)
+    {
+        $user = User::whereUsername($username)->firstOrFail();
+
+        \File::delete(storage_path('app/public/').$user->payment_screenshot);
+
+        $user->payment_confirmed = -1;
+        $user->payment_applied_at = null;
+        $user->payment_method = null;
+        $user->payment_screenshot = null;
+        $user->save();
+
+        toast('Payment Rejected. ', 'info', 'top-right')->autoClose(10000);
+        return redirect()->back();
+    }
 }

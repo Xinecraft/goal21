@@ -54,7 +54,8 @@ class CreateUsersTable extends Migration
             $table->integer('total_referrals')->default(0);
             $table->integer('total_referrals_autofill')->default(0);
 
-            $table->integer('total_task_pending')->default(0);
+            $table->integer('total_registration_task_pending')->default(10);
+            $table->integer('total_task_pending')->default(40);
             $table->integer('total_apps_downloaded')->default(0);
             $table->integer('total_adv_seen')->default(0);
             $table->integer('total_videos_seen')->default(0);
@@ -62,8 +63,13 @@ class CreateUsersTable extends Migration
             $table->double('total_income')->default(0);
             $table->double('wallet_one')->default(0);
             $table->double('wallet_two')->default(0);
-            $table->boolean('payment_confirmed')->default(false);
-            $table->double('payment_amount')->default(0);
+            // Wallet 3 in Wallet System
+
+            $table->dateTime('payment_applied_at')->nullable();
+            $table->double('payment_amount')->default(149);
+            $table->string('payment_screenshot')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->tinyInteger('payment_confirmed')->default(-1); // -1 not applied , 0 - applied and pending , 1 - approved
             $table->dateTime('activated_at')->nullable();
 
             $table->string('aadhaarid')->nullable();
@@ -79,6 +85,7 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
 
             $table->foreign('referral_user_id')->references('id')->on('users');
+            $table->foreign('referral_user_id_autofill')->references('id')->on('users');
         });
     }
 

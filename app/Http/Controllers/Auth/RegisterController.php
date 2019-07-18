@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'phone_number' => 'required|string|min:10|max:20',
             'gender' => 'required|in:M,F,O',
             'dob' => 'required|date',
-            'referral_user' => 'nullable|max:255|string|exists:users,username',
+            'referral_user' => 'required|max:255|string|exists:users,username',
         ]);
     }
 

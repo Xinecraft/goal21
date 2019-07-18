@@ -248,6 +248,57 @@ class HomeController extends Controller
     }
 
 
+    public function getPremiumApplyForm()
+    {
+        if (SiteSetting::getSetting('allow_upgradation_of_accounts') == 'no')
+        {
+            alert()->error('Ops!','We are not accepting to Upgrade Accounts right now. Please try again later.');
+            return redirect()->route('dashboard');
+        }
+
+        if (auth()->user()->payment_confirmed >= 0)
+        {
+            return redirect()->route('dashboard');
+        }
+
+        return view('dashboard.applypremiumform');
+    }
+
+    public function postPremiumApplyForm(Request $request)
+    {
+        if (SiteSetting::getSetting('allow_upgradation_of_accounts') == 'no')
+        {
+            alert()->error('Ops!','We are not accepting to Upgrade Accounts right now. Please try again later.');
+            return redirect()->route('dashboard');
+        }
+
+        if (auth()->user()->payment_confirmed >= 0)
+        {
+            return redirect()->route('dashboard');
+        }
+
+        $validatedData = $request->validate([
+            'payment_method' => 'required|in:PAYTM,BANK,GOOGLE PAY',
+            'payment_screenshot' => 'required|image|max:500',
+        ]);
+
+        $user = $request->user();
+
+        $screenshotName = $request->user()->username."_payment_info.".$request->file('payment_screenshot')->getClientOriginalExtension();
+        $payment_screenshot = $request->file('payment_screenshot')->move(storage_path('app/public/'), $screenshotName);
+        $payment_screenshot = $payment_screenshot->getFilename();
+
+        $user->payment_applied_at = now();
+        $user->payment_confirmed = 0;
+        $user->payment_method = $request->payment_method;
+        $user->payment_screenshot = $payment_screenshot;
+        $user->save();
+
+        alert()->success('Congrats!','You have successfully applied for account upgrade.');
+        return redirect()->route('dashboard');
+    }
+
+
     /**
      * View Form for Payment Confirmation for Sender
      *
@@ -263,7 +314,7 @@ class HomeController extends Controller
         }
         if (SiteSetting::getSetting('payout_request_status') == 'no')
         {
-            alert()->error('Payout Request Closed!','We are not accepted Payout Request right now. Please try again later.');
+            alert()->error('Payout Request Closed!','We are not accepting Payout Request right now. Please try again later.');
             return redirect()->route('dashboard');
         }
 

@@ -2,22 +2,29 @@
 
 @section('content')
 
-    @if(!Auth::user()->is_profile_completed || !Auth::user()->payment_confirmed)
+    @if(!Auth::user()->is_kyc)
         <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">Complete your KYC to get started!</h4>
             <p>Congrats! You have successfully registered with Goal21 Network. Complete Profile & KYC now to start
                 earning!</p>
             <ul class="list-ticked">
-                @if(!Auth::user()->is_profile_completed)
+                @if(!Auth::user()->is_kyc)
                     <li>Complete KYC.</li>
                 @endif
             </ul>
             <hr>
-            @if(!Auth::user()->is_profile_completed)
+            @if(!Auth::user()->is_kyc)
                 <a href="{{ route('get.completeyourprofile') }}" class="btn btn-outline-danger">Complete your KYC <i
                             class="mdi mdi-account-box-outline"></i>
                 </a>
             @endif
+        </div>
+    @endif
+
+    @if(Auth::user()->payment_confirmed == 0)
+        <div class="alert alert-primary" role="alert">
+            <h4 class="alert-heading">Upgrade Account Applied and is pending admin approval!</h4>
+            <p>Congrats! You have successfully applied for Account Upgrade. Please wait while admin verify your Payment</p>
         </div>
     @endif
 

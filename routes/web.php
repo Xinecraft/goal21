@@ -56,6 +56,10 @@ Route::group(['prefix' => 'dashboard'], function(){
 
     Route::get('member/{user}', 'HomeController@getUserDetails')->name('get.userdetails');
 
+    Route::get('apply-for-upgrade', 'HomeController@getPremiumApplyForm')->name('get.applyforpremium');
+    Route::post('apply-for-upgrade', 'HomeController@postPremiumApplyForm')->name('post.applyforpremium');
+
+
     Route::get('coming-soon', 'HomeController@getComingSoon')->name('get.comingsoon');
 });
 
@@ -76,6 +80,10 @@ Route::group(['prefix' => 'dashboard/admin'], function(){
     Route::any('getusers/', 'AdminController@anyListUsers')->name('admin.any.listusers');
     Route::get('user/{username}', 'AdminController@getListUsers')->name('admin.get.viewuser');
     Route::get('user/{username}/edit', 'AdminController@getListUsers')->name('admin.get.edituser');
+
+    Route::get('payment-approval/', 'AdminController@getListPaymentApprovals')->name('admin.get.listpaymentapprovals');
+    Route::post('payment-approval/{username}/approve', 'AdminController@postApprovePayment')->name('admin.post.approvepayment');
+    Route::delete('payment-approval/{username}/reject', 'AdminController@deleteRejectPayment')->name('admin.delete.rejectpayment');
 
     Route::get('site-settings', 'AdminController@getSiteSettings')->name('admin.get.sitesettings');
     Route::post('site-settings', 'AdminController@postSiteSettings')->name('admin.post.sitesettings');
