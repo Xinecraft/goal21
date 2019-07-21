@@ -46,19 +46,24 @@ class SetAutofillReferral
                 break;
             }
             else {
+                $godown = true;
                 // Check all 3 below users and if anyone have free then select it
-                foreach ($referrer->referralauto as $rfo) {
+                foreach ($referrer->referralsauto as $rfo) {
                     if($rfo->referralsauto->count() < 3)
                     {
                         $referrer = $rfo;
                         $keeptrying = true;
-                        continue;
+                        $godown = false;
+                        break;
                     }
                 }
 
-                // All the three Nodes are full. Go one down the first element.
-                $referrer = $referrer->referralsauto->first();
-                $keeptrying = true;
+                if($godown)
+                {
+                    // All the three Nodes are full. Go one down the first element.
+                    $referrer = $referrer->referralsauto->first();
+                    $keeptrying = true;
+                }
             }
         }
     }
