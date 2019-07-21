@@ -10,7 +10,7 @@
             </button>
         </div>
 
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group col-md-12" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default panel-bordered-mlm-list" style="border: 1px solid #308ee0;">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">

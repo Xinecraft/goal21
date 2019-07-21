@@ -107,7 +107,7 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#membertree" aria-expanded="false" aria-controls="membertree">
                 <i class="menu-icon mdi mdi-sitemap"></i>
-                <span class="menu-title">members Tree</span>
+                <span class="menu-title">Members Tree</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="membertree">

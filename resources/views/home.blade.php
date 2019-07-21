@@ -120,7 +120,7 @@
                 <div class="card-body">
                     <div class="clearfix">
                         <div class="float-left">
-                            <i class="mdi mdi-account-multiple-plus text-warning icon-lg"></i>
+                            <i class="mdi mdi-account-multiple-plus text-primary icon-lg"></i>
                         </div>
                         <div class="float-right">
                             <p class="mb-0 text-right">My Direct</p>
@@ -140,17 +140,17 @@
                 <div class="card-body">
                     <div class="clearfix">
                         <div class="float-left">
-                            <i class="mdi mdi-account-multiple text-primary icon-lg"></i>
+                            <i class="mdi mdi-trophy text-warning icon-lg"></i>
                         </div>
                         <div class="float-right">
-                            <p class="mb-0 text-right">My Total Team</p>
+                            <p class="mb-0 text-right">My Rank</p>
                             <div class="fluid-container">
-                                <h3 class="font-weight-medium text-right mb-0">{{ Auth::user()->total_referrals }}</h3>
+                                <h3 class="font-weight-medium text-right mb-0">X</h3>
                             </div>
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Out of ∞ total
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Coming Soon
                     </p>
                 </div>
             </div>
@@ -216,7 +216,7 @@
     </div>
 
     <hr>
-    <h3 class="title text-center text-primary">Your Direct Referrals</h3>
+    {{--<h3 class="title text-center text-primary">Your Direct Referrals</h3>
     <div class="row">
         @forelse(Auth::user()->referrals as $referral)
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
@@ -261,7 +261,7 @@
                 </div>
             </div>
         @endfor
-    </div>
+    </div>--}}
 
     <div class="row col-sm-12">
         <div class="panel card" style="padding: 10px">
