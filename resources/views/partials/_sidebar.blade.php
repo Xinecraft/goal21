@@ -105,11 +105,23 @@
         @endif
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('get.userdetails',Auth::user()->uuid) }}">
+            <a class="nav-link" data-toggle="collapse" href="#membertree" aria-expanded="false" aria-controls="membertree">
                 <i class="menu-icon mdi mdi-sitemap"></i>
-                <span class="menu-title">Members Tree</span>
+                <span class="menu-title">members Tree</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="membertree">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('get.listmatrixmembers') }}">Matrix Members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('get.listautofillmembers') }}">Autofill Members</a>
+                    </li>
+                </ul>
+            </div>
         </li>
+
         <li class="nav-item">
             <a target="_blank" class="nav-link" href="">
                 <i class="menu-icon mdi mdi-headset"></i>

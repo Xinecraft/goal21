@@ -2,22 +2,25 @@
 
 @section('content')
 
-    @if(!Auth::user()->is_kyc)
+    @if(Auth::user()->is_kyc == -1)
         <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">Complete your KYC to get started!</h4>
             <p>Congrats! You have successfully registered with Goal21 Network. Complete Profile & KYC now to start
                 earning!</p>
             <ul class="list-ticked">
-                @if(!Auth::user()->is_kyc)
-                    <li>Complete KYC.</li>
-                @endif
+                    <li>Complete KYC & Profile.</li>
             </ul>
             <hr>
-            @if(!Auth::user()->is_kyc)
                 <a href="{{ route('get.completeyourprofile') }}" class="btn btn-outline-danger">Complete your KYC <i
                             class="mdi mdi-account-box-outline"></i>
                 </a>
-            @endif
+        </div>
+    @endif
+
+    @if(Auth::user()->is_kyc == 0)
+        <div class="alert alert-primary" role="alert">
+            <h4 class="alert-heading">KYC Applied and is pending admin approval!</h4>
+            <p>Congrats! You have successfully filled your KYC. Please wait while admin verify it.</p>
         </div>
     @endif
 

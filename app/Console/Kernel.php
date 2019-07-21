@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ProcessWalletOne;
+use App\Console\Commands\ProcessWalletTwo;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +16,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        ProcessWalletOne::class,
+        ProcessWalletTwo::class
     ];
 
     /**
@@ -25,9 +28,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // Must run first. and daily at 0:0
         $schedule->call(function () {
             DB::table('task_user')->delete();
         })->daily();
+        // Must run second. and daily at 0:0
+        $schedule->command('process:wallettwo')->monthlyOn(10);
+        // Must run at last
+        $schedule->command('process:walletone')->daily();
     }
 
     /**

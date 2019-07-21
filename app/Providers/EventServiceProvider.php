@@ -20,6 +20,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\NewMemberAdded' => [
             'App\Listeners\SendWelcomeEmail',
+            'App\Listeners\SetAutofillReferral'
+        ],
+        'App\Events\NewPremiumSubscription' => [
+            'App\Listeners\AddMoneyToReferrers'
         ]
     ];
 

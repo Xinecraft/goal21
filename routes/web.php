@@ -54,11 +54,12 @@ Route::group(['prefix' => 'dashboard'], function(){
     Route::get('task/{uuid}', 'HomeController@getViewTask')->name('get.viewtask');
     Route::post('task/{uuid}', 'HomeController@postViewTask')->name('post.viewtask');
 
+    Route::get('members/matrix', 'HomeController@getMatrixMembers')->name('get.listmatrixmembers');
+    Route::get('members/autofill', 'HomeController@getAutofillMembers')->name('get.listautofillmembers');
     Route::get('member/{user}', 'HomeController@getUserDetails')->name('get.userdetails');
 
     Route::get('apply-for-upgrade', 'HomeController@getPremiumApplyForm')->name('get.applyforpremium');
     Route::post('apply-for-upgrade', 'HomeController@postPremiumApplyForm')->name('post.applyforpremium');
-
 
     Route::get('coming-soon', 'HomeController@getComingSoon')->name('get.comingsoon');
 });

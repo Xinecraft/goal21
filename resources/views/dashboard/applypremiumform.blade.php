@@ -2,6 +2,14 @@
 @section('title', 'Upgrade your Id')
 
 @section('content')
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>Hello {{ Auth::user()->username }}!</strong> Please pay ₹149 to any of below given payment method, select the method and valid screenshot and submit the form.
+        <br>
+        <strong>नमस्ते {{ Auth::user()->username }}!</strong> कृपया नीचे दिए गए किसी भी भुगतान विधि को ₹149 का भुगतान करें, विधि और मान्य स्क्रीनशॉट का चयन करें और फ़ॉर्म सबमिट करें।
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <div class="col-md-6 d-flex align-items-stretch grid-margin mx-auto">
         <div class="row flex-grow">
             <div class="col-12">
@@ -20,13 +28,15 @@
                         <p class="card-description">
                         <table class="table table-bordered">
                             <tr>
-                                <td class="py-1">
-                                    PayTM Number: 70011111111<br>
-                                    Google Pay: 70011111111
+                                <td class="py-1 font-weight-bold">
+                                    PayTM Number: 7002364123<br>
+                                    Google Pay: 70075909575
                                 </td>
-                                <td>
-                                    Bank Account: 2378643264823 <br>
-                                    IFSC: sjdkfhks
+                                <td class="font-weight-bold">
+                                    Account No: 2378643264823 <br>
+                                    Holder Name: Test User <br>
+                                    Bank Name: Bank of Baroda <br>
+                                    IFSC: BARB0KAKAX
                                 </td>
                             </tr>
                         </table>

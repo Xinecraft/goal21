@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewPremiumSubscription;
 use App\Http\Requests\TaskRequest;
 use App\SiteSetting;
 use App\Task;
@@ -18,7 +19,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'admin']);
     }
 
     public function index()
@@ -45,6 +46,7 @@ class AdminController extends Controller
         switch ($request->action) {
             case 'accept':
                 $kyc->is_kyc = 1;
+                $kyc->is_profile_completed = 1;
                 $kyc->kyc_approved_at = Carbon::now();
                 if ($kyc->save()) {
                     toast('KYC Has been accepted successfully', 'success', 'top-right')->autoClose(5000);
@@ -56,6 +58,7 @@ class AdminController extends Controller
                 break;
             case 'reject':
                 $kyc->is_kyc = -1;
+                $kyc->is_profile_completed = 0;
                 $kyc->kyc_approved_at = null;
                 $kyc->kyc_request_at = null;
                 if ($kyc->save()) {
@@ -222,10 +225,13 @@ class AdminController extends Controller
         $user = User::whereUsername($username)->firstOrFail();
 
         $user->payment_confirmed = 1;
+        $user->wallet_two += 30; // Add 30 INR BONUS MONEY
         $user->activated_at = now();
         $user->save();
 
         \File::delete(storage_path('app/public/').$user->payment_screenshot);
+
+        event(new NewPremiumSubscription($user));
 
         toast('Payment Approved. ', 'success', 'top-right')->autoClose(10000);
         return redirect()->back();

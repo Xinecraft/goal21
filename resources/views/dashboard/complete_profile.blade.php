@@ -15,7 +15,7 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">COMPLETE YOUR PROFILE</h4>
+                <h4 class="card-title">COMPLETE YOUR KYC & PROFILE</h4>
                 {!! Form::open(['files' => 'true']) !!}
                 <p class="card-description">
                     Personal info

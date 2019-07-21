@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
      * @var array
      */
     protected $fillable = [
-        'full_name', 'email', 'password', 'uuid', 'username', 'gender', 'dob', 'last_login_ip', 'phone_number', 'referral_user_id', 'payment_amount', 'payment_confirmed', 'status'
+        'full_name', 'email', 'password', 'uuid', 'username', 'gender', 'dob', 'last_login_ip', 'phone_number', 'referral_user_id', 'payment_amount', 'payment_confirmed', 'status', 'total_task_pending'
     ];
 
     /**
@@ -57,7 +57,7 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
     }
 
     /**
-     * This person who referred
+     * This person who referred. MATRIX System
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function referredby()
@@ -66,12 +66,30 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
     }
 
     /**
-     * All users whom he referred
+     * All users whom he referred. MATRIX System
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function referrals()
     {
         return $this->hasMany('App\User', 'referral_user_id');
+    }
+
+    /**
+     * This person who referred. AUTOFILL System
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function referredbyauto()
+    {
+        return $this->belongsTo('App\User', 'referral_user_id_autofill');
+    }
+
+    /**
+     * All users whom he referred. AUTOFILL System
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function referralsauto()
+    {
+        return $this->hasMany('App\User', 'referral_user_id_autofill');
     }
 
     /**
@@ -89,6 +107,15 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
     public function scopeActive($query)
     {
         return $query->where('status', '>', 0);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopePremium($query)
+    {
+        return $query->where('payment_confirmed', '>', 0);
     }
 
     /**

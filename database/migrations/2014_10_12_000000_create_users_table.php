@@ -51,6 +51,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_protected')->default(false);
             $table->boolean('is_profile_completed')->default(false);
             $table->tinyInteger('status')->default(0);           // 0-inactive 1-active
+
             $table->integer('total_referrals')->default(0);
             $table->integer('total_referrals_autofill')->default(0);
 
@@ -76,7 +77,7 @@ class CreateUsersTable extends Migration
             $table->string('pancard_photo')->nullable();
             $table->string('aadhaar_photo')->nullable();
             $table->string('bank_account_photo')->nullable();
-            $table->smallInteger('is_kyc')->default(-1);
+            $table->smallInteger('is_kyc')->default(-1); // -1 is nope. 0 is applied and 1 is done
             $table->dateTime('kyc_request_at')->nullable();
             $table->dateTime('kyc_approved_at')->nullable();
 

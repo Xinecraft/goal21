@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			<div class="intro-animation">
-				<img src="images/intro-animation.png" alt="" title=""/>
+				@include('partials._globesvg')
 			</div>
 			<svg class="svg-intro-bottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
 				<path d="M95,0 Q90,90 0,100 L100,100 100,0 Z" fill="#ffffff"/>

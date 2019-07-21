@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\NewMemberAdded;
+use App\Task;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -87,6 +88,9 @@ class RegisterController extends Controller
             $ref_user = null;
         }
 
+        // Get total number of active tasks
+        $tasksCount = Task::where('is_active', 1)->count();
+
         $newUser = User::create([
             'uuid' => $uuid->string,
             'username' => $username,
@@ -98,7 +102,8 @@ class RegisterController extends Controller
             'dob' => $data['dob'],
             'referral_user_id' => $ref_user,
             'last_login_ip' => Request::ip(),
-            'status' => 1
+            'status' => 1,
+            'total_task_pending' => $tasksCount
         ]);
 
         if ($data['referral_user']) {

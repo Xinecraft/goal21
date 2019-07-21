@@ -14,10 +14,22 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\User::class, function (Faker $faker) {
+    $users = \App\User::pluck('id');
+    $tasksCount = \App\Task::where('is_active',1)->count();
     return [
-        'name' => $faker->name,
+        'full_name' => $faker->name,
+        'uuid' => $faker->uuid,
+        'username' => $faker->userName,
         'email' => $faker->unique()->safeEmail,
+        'email_verified_at' => now(),
+        'phone_number' => $faker->phoneNumber,
+        'last_login_ip' => $faker->ipv4,
+        'status' => 1,
+        'total_task_pending' => $tasksCount,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'gender' => $faker->randomElement(['M', 'F', 'O']),
+        'dob' => $faker->dateTimeThisCentury(),
         'remember_token' => str_random(10),
+        'referral_user_id' => $faker->randomElement($users)
     ];
 });

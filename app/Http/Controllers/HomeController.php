@@ -68,7 +68,7 @@ class HomeController extends Controller
 
     public function getCompleteProfile(Request $request)
     {
-        if ($request->user()->is_profile_completed)
+        if ($request->user()->is_kyc >= 0)
         {
             alert()->warning('Already Done!','You have already completed that. Visit Edit Profile section to make any changes.');
             return redirect()->route('dashboard');
@@ -308,7 +308,7 @@ class HomeController extends Controller
      */
     public function getViewWithdrawRequestForm(Request $request)
     {
-        if (!$request->user()->is_kyc <= 0) {
+        if ($request->user()->is_kyc <= 0) {
             alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
             return redirect()->back();
         }
@@ -341,7 +341,7 @@ class HomeController extends Controller
      */
     public function postViewWithdrawRequestForm(Request $request)
     {
-        if (!$request->user()->is_kyc) {
+        if ($request->user()->is_kyc <= 0) {
             alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
             return redirect()->back();
         }
@@ -700,7 +700,16 @@ class HomeController extends Controller
             return redirect()->route('get.golisttasks');
         }
         $user->tasks()->attach($task, ['status' => 1]);
-        $user->wallet_one += $task->credit_inr;
+        // Only decrease if it is more than 0 to avoid negative error issue
+        if ($user->total_task_pending > 0) {
+            $user->total_task_pending -= 1;
+        }
+
+        // If user is not premium then only add money to his wallet. Premium user dont get money for his own tasks, only team tasks
+        if ($user->payment_confirmed < 1)
+        {
+            $user->wallet_one += $task->credit_inr;
+        }
         $user->save();
 
         $task->total_impression += 1;
@@ -708,5 +717,128 @@ class HomeController extends Controller
 
         alert()->success('Congrats!','You have successfully completed the task')->showCancelButton('Close')->autoClose(5000);
         return redirect()->route('get.golisttasks');
+    }
+
+    public function getMatrixMembers(Request $request)
+    {
+        $user = $request->user();
+        $levelArray = [];
+        $levelArray[1] = $user->referrals;
+
+        $levelArray[2] = [];
+        foreach($levelArray[1] as $user)
+        {
+            foreach($user->referrals as $referral)
+                array_push($levelArray[2], $referral);
+        }
+
+        $levelArray[3] = [];
+        foreach($levelArray[2] as $user)
+        {
+            foreach($user->referrals as $referral)
+                array_push($levelArray[3], $referral);
+        }
+
+        $levelArray[4] = [];
+        foreach($levelArray[3] as $user)
+        {
+            foreach($user->referrals as $referral)
+                array_push($levelArray[4], $referral);
+        }
+
+        $levelArray[5] = [];
+        foreach($levelArray[4] as $user)
+        {
+            foreach($user->referrals as $referral)
+                array_push($levelArray[5], $referral);
+        }
+
+        $levelArray[6] = [];
+        foreach($levelArray[5] as $user)
+        {
+            foreach($user->referrals as $referral)
+                array_push($levelArray[6], $referral);
+        }
+
+        $levelArray[7] = [];
+        foreach($levelArray[6] as $user)
+        {
+            foreach($user->referrals as $referral)
+                array_push($levelArray[6], $referral);
+        }
+
+        return view('dashboard.listmatrixmembers')->with('levelArray', $levelArray);
+    }
+
+    public function getAutofillMembers(Request $request)
+    {
+        $user = $request->user();
+        $levelArray = [];
+        $levelArray[1] = $user->referralsauto;
+
+        $levelArray[2] = [];
+        foreach($levelArray[1] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[2], $referral);
+        }
+
+        $levelArray[3] = [];
+        foreach($levelArray[2] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[3], $referral);
+        }
+
+        $levelArray[4] = [];
+        foreach($levelArray[3] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[4], $referral);
+        }
+
+        $levelArray[5] = [];
+        foreach($levelArray[4] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[5], $referral);
+        }
+
+        $levelArray[6] = [];
+        foreach($levelArray[5] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[6], $referral);
+        }
+
+        $levelArray[7] = [];
+        foreach($levelArray[6] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[7], $referral);
+        }
+
+        $levelArray[8] = [];
+        foreach($levelArray[7] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[8], $referral);
+        }
+
+        $levelArray[9] = [];
+        foreach($levelArray[8] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[9], $referral);
+        }
+
+        $levelArray[10] = [];
+        foreach($levelArray[9] as $user)
+        {
+            foreach($user->referralsauto as $referral)
+                array_push($levelArray[10], $referral);
+        }
+
+        return view('dashboard.listautofillmembers')->with('levelArray', $levelArray);
     }
 }
