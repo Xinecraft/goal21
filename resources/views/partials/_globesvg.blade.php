@@ -2788,6 +2788,10 @@
         -webkit-transform: translate3d(0, 0, 0);
         -webkit-transform-origin: 331px 201px;
         -webkit-transform: translate3d(0, 0, 0);
+        -webkit-animation: rotate-right 5s linear 0s infinite;
+    }
+
+    #Layer_1:hover #windmill{
         -webkit-animation: rotate-right 2s linear 0s infinite;
     }
 
