@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('landing');
 
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
+Route::get('/faq', function () {
+    return view('faq');
+})->name('faq');
+
 Route::redirect('/home', '/dashboard', 301);
 
 Auth::routes();

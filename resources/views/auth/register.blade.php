@@ -127,7 +127,11 @@
                                 <label for="referral_user" class="col-md-4 col-form-label text-md-right">{{ __('Referral Username') }}</label>
 
                                 <div class="col-md-7">
-                                    <input placeholder="Referral username..." id="referral_user" type="text" class="form-control{{ $errors->has('referral_user') ? ' is-invalid' : '' }}" name="referral_user" value="{{ old('referral_user') }}">
+                                    @if(Request::has('referral'))
+                                        <input id="referral_user" type="text" class="form-control{{ $errors->has('referral_user') ? ' is-invalid' : '' }}" name="referral_user" value="{{ Request::get('referral') }}" disabled>
+                                    @else
+                                        <input placeholder="Referral username..." id="referral_user" type="text" class="form-control{{ $errors->has('referral_user') ? ' is-invalid' : '' }}" name="referral_user" value="{{ old('referral_user') }}">
+                                    @endif
 
                                     @if ($errors->has('referral_user'))
                                         <span class="invalid-feedback" role="alert">

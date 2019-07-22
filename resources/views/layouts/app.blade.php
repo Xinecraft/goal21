@@ -69,6 +69,7 @@
 <!-- inject:js -->
 <script src="/js/off-canvas.js"></script>
 <script src="/js/misc.js"></script>
+<script src="{{ asset('js/share.js') }}"></script>
 @yield('scripts')
 <!-- endinject -->
 <!-- Custom js for this page-->

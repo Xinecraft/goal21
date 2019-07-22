@@ -59,3 +59,22 @@ footer a
     border-radius: 5px;
     margin: 10px;
 }
+#social-links ul
+{
+    float: right;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#social-links ul li {
+    float: left;
+    padding: 5px;
+}
+#social-links ul li a{
+    font-size: 25px;
+    color: #0086c6;
+}
+#social-links ul li a:hover{
+    color: #08bcc6;
+}

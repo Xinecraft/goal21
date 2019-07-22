@@ -16,7 +16,7 @@
 			<div class="header__logo-title"><img src="/images/logo.png" alt="logo"></div>
 			<nav class="header__menu">                                                                   
 				<ul>
-					<li><a class="selected header-link" href="#intro">HOME</a></li>
+					<li><a class="selected header-link" href="">HOME</a></li>
 					<li class="menu-item-has-children"><a href="#features" class="header-link">FEATURES</a><li>
                 <li class="header__btn header__btn--login"><a href="{{ route('login') }}">LOGIN</a></li>
                 <li class="header__btn header__btn--signup"><a href="{{ route('register') }}">GET STARTED</a></li>	
@@ -354,7 +354,8 @@
 						<h3 class="grid__title grid__title--footer">Company</h3>
 						<ul class="grid__list grid__list--fmenu">
 								<li><a href="#">About</a></li>
-								<li><a href="#">Leaderboard</a></li>
+								<li><a href="{{ route('terms') }}">Terms & Condition</a></li>
+								<li><a href="{{ route('faq') }}">FaQ</a></li>
 						</ul>
 					</div>
 					<div class="grid__item">
@@ -380,132 +381,12 @@
 
 
 	</footer>
-	
 
-	  <section class="modal modal--signuplogin">
-		<div class="modal__overlay modal__overlay--toggle"></div>
-		<div class="modal__wrapper modal-transition">
-		  
-		<div class="modal__body">
-		        
-			<div class="modal__content modal__content--login">
-				<div class="modal__info">
-					<h2 class="modal__title">First time here?</h2>
-					<div class="modal__descr">Join now and get <span>20% OFF</span> for all products</div>
-					<ul class="modal__list">
-					<li>premium access to all products</li>
-					<li>free testing tools</li>
-					<li>unlimited user accounts</li>
-					</ul>
-					<button class="modal__switch modal__switch--signup" data-popup="signup">Signup</button>
-				</div>
-				<div class="modal__form form">
-					<h2 class="form__title">Login</h2>
-						<form class="form__container" id="LoginForm" method="post" action="index.html">
-						
-						<div class="form__row">
-								<label class="form__label" for="namec">Name</label>
-							<input name="namec" id="namec" class="form__input" type="text"/>
-							<span class="form__row-border"></span>
-						</div>
-						<div class="form__row">
-								<label class="form__label">Email</label>
-							<input name="emailc" class="form__input" type="text"/>	
-							<span class="form__row-border"></span>									
-						</div>
-						
-						<div class="modal__checkbox"><input id="remember" name="remember" value="remember" checked type="checkbox"><label for="remember">Keep me Signed in</label></div>
-						<div class="modal__switch modal__switch--forgot" data-popup="forgot">Forgot Password?</div>
-						<input type="submit" name="submit" class="form__submit btn btn--green-bg" id="submitl" value="LOGIN" />
-						</form>
-				</div>
-			</div>  <!-- End Modal login -->
-			
-			<div class="modal__content modal__content--forgot">
-				<div class="modal__form form">
-					<h2 class="form__title">Forgot Password</h2>
-						<form class="form__container" id="ForgotForm" method="post" action="index.html">
-						<div class="form__row">
-							<label class="form__label">Email</label>
-							<input name="emailf" class="form__input" type="text"/>	
-							<span class="form__row-border"></span>									
-						</div>
-						<input type="submit" name="submit" class="form__submit btn btn--green-bg" id="submitf" value="RESET PASSWORD" />
-						</form>
-				</div>
-				<div class="modal__info">
-					<h2 class="modal__title">We got you covered</h2>
-					<div class="modal__descr">A new password will be sent by email. Remembered your password?</div>
-					<button class="modal__switch modal__switch--signup" data-popup="login">Login</button>
-				</div>
-			</div>  <!-- End Modal login -->
-			
-			
-			<div class="modal__content modal__content--signup">
-				<div class="modal__form form">
-					<h2 class="form__title">Signup</h2>
-						<form class="form__container" id="SignupForm" method="post" action="index.html">
-						<div class="form__row">
-							<label class="form__label" for="names">Username</label>
-							<input name="namec" id="names" class="form__input" type="text"/>
-							<span class="form__row-border"></span>
-						</div>
-						<div class="form__row">
-							<label class="form__label">Email</label>
-							<input name="emails" class="form__input" type="text"/>	
-							<span class="form__row-border"></span>									
-						</div>
-						<div class="form__row">
-							<label class="form__label" for="pass">Password</label>
-							<input name="pass" id="pass" class="form__input" type="password"/>
-							<span class="form__row-border"></span>
-						</div>
-						<input type="submit" name="submit" class="form__submit btn btn--green-bg" id="submit" value="SIGNUP" />
-						</form>
-				</div>
-				<div class="modal__info">
-					<h2 class="modal__title">Allready have an account?</h2>
-					<div class="modal__descr">Login now and starting using our <span>amazing</span> products</div>
-					<ul class="modal__list">
-					<li>premium access to all products</li>
-					<li>free testing tools</li>
-					<li>unlimited user accounts</li>
-					</ul>
-					<button class="modal__switch modal__switch--login" data-popup="login">Login</button>
-				</div>
-			</div>  <!-- End Modal signup -->
-			
-		</div>
-		  
-		</div>
-	  </section>    <!-- Modal for Login and Signup -->
-	  
-	   <section class="modal modal--animation">
-		<div class="modal__overlay modal__overlay--toggle"></div>
-			<div class="modal__wrapper modal__wrapper--image modal-transition">
-				<div class="modal__body">
-					<button class="modal__close modal__overlay--toggle"><span></span></button>
-					<div class="modal__header">How it works animation</div>
-					
-					<div class="modal__image">
-						<img src="images/intro-animation.gif" alt="" title=""/>
-					</div>
-				</div>
-			</div>
-	  </section>    <!-- Modal for animation -->
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery.paroller.min.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script src="js/swiper.min.js"></script>
 <script src="js/swiper.custom.js"></script>
 <script src="js/menu.js"></script>
-<script src="particles.js"></script>
-<script>
-/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('intro', 'particles.json', function() {
-  console.log('callback - particles.js config loaded');
-});
-
-</script>
 </body>
 </html>

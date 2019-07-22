@@ -32,6 +32,20 @@
     @endif
 
     {{--Dashboard OverView--}}
+    <div class="row sharelinks">
+        <div class="col-md-12">
+            {!! Share::page(route('register',['referral' => auth()->user()->username]), 'Join Goal21 Now and Earn Bonus')
+	->facebook()
+	->twitter()
+	->googlePlus()
+	->linkedin('Join for Free')
+	->whatsapp(); !!}
+            <div class="imput-copier pull-right col-md-4" style="margin-top: 10px;">
+                <p class="pull-left" style="margin-top: 8px;">Your Referral Link: &nbsp;</p>
+                <input type="text" class="form-control col-md-8" id="copyInput" onclick="copyFunction()" value="{{ route('register',['referral' => auth()->user()->username]) }}">
+            </div>
+        </div>
+    </div>
     <div class="row">
         <marquee behavior="" direction=""><h4
                     class="text-danger">{{ \App\SiteSetting::getSetting('dashboard_marquee_1') }}</h4></marquee>
@@ -278,4 +292,16 @@
             </p>
         </div>
     </div>
+@endsection
+
+@section('styles')
+    <script src="https://kit.fontawesome.com/22e39e4126.js"></script>
+    <script>
+        function copyFunction() {
+            var copyText = document.getElementById("copyInput");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Copied to Clipboard!");
+        }
+    </script>
 @endsection
