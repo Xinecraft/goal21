@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\NewPremiumSubscription;
 use App\Http\Requests\TaskRequest;
+use App\Payment;
 use App\SiteSetting;
 use App\Task;
 use App\User;
@@ -250,6 +251,28 @@ class AdminController extends Controller
         $user->save();
 
         toast('Payment Rejected. ', 'info', 'top-right')->autoClose(10000);
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getViewPendingWithdrawRequests(Request $request)
+    {
+        $payments = Payment::where('payment_status',0)->paginate(10);
+        return view('admin.withdrawrequests')->with('payments',$payments);
+    }
+
+    public function postApprovePendingWithdrawRequest($uuid, Request $request)
+    {
+        $payment = Payment::whereUuid($uuid)->firstOrFail();
+
+        $payment->payment_status = 1;
+        $payment->paid_at = now();
+        $payment->save();
+
+        toast('Withdraw Request Completed. ', 'success', 'top-right')->autoClose(10000);
         return redirect()->back();
     }
 }

@@ -98,6 +98,10 @@ Route::group(['prefix' => 'dashboard/admin'], function(){
     Route::post('payment-approval/{username}/approve', 'AdminController@postApprovePayment')->name('admin.post.approvepayment');
     Route::delete('payment-approval/{username}/reject', 'AdminController@deleteRejectPayment')->name('admin.delete.rejectpayment');
 
+    Route::get('withdraw-requests', 'AdminController@getViewPendingWithdrawRequests')->name('admin.get.withdrawrequests');
+    Route::post('withdraw-requests/{uuid}/approve', 'AdminController@postApprovePendingWithdrawRequest')->name('admin.post.approve-wr');
+    Route::delete('withdraw-requests/{uuid}/reject', 'AdminController@getViewPendingWithdrawRequests')->name('admin.delete.reject-wr');
+
     Route::get('site-settings', 'AdminController@getSiteSettings')->name('admin.get.sitesettings');
     Route::post('site-settings', 'AdminController@postSiteSettings')->name('admin.post.sitesettings');
 });

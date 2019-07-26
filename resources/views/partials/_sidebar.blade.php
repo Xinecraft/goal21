@@ -56,6 +56,9 @@
                             <a class="nav-link" href="{{ route('admin.get.listpaymentapprovals') }}">Approve Payments</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.get.withdrawrequests') }}">Withdraw Requests</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.get.sitesettings') }}">Site Settings </a>
                         </li>
                     </ul>
