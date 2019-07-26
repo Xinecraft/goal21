@@ -764,7 +764,7 @@ class HomeController extends Controller
         foreach($levelArray[6] as $user)
         {
             foreach($user->referrals as $referral)
-                array_push($levelArray[6], $referral);
+                array_push($levelArray[7], $referral);
         }
 
         return view('dashboard.listmatrixmembers')->with('levelArray', $levelArray);
