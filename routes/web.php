@@ -11,21 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('landing');
+Route::get('/', 'GeneralController@index')->name('landing');
 
-Route::get('/terms', function () {
-    return view('terms');
-})->name('terms');
+Route::get('/terms','GeneralController@terms')->name('terms');
 
-Route::get('/faq', function () {
-    return view('faq');
-})->name('faq');
+Route::get('/faq', 'GeneralController@faq')->name('faq');
 
-Route::get('/aboutus', function () {
-    return view('about');
-})->name('aboutus');
+Route::get('/aboutus', 'GeneralController@about')->name('aboutus');
 
 Route::redirect('/home', '/dashboard', 301);
 
@@ -106,7 +98,7 @@ Route::group(['prefix' => 'dashboard/admin'], function(){
     Route::post('site-settings', 'AdminController@postSiteSettings')->name('admin.post.sitesettings');
 });
 
-Route::get('/test', function()
+/*Route::get('/test', function()
 {
     $user = Auth::user();
     $password = str_random(8);
@@ -117,13 +109,13 @@ Route::get('/test', function()
     $notify = Auth::user()->notify(new \App\Notifications\PaymentDeclined($payment));
     $notify = Auth::user()->notify(new \App\Notifications\PaymentVerified($payment));
     dd($notify);
-});
+});*/
 
-Route::get('/fakedeposit/{amount}', function($amount) {
+/*Route::get('/fakedeposit/{amount}', function($amount) {
    Auth::user()->depositFloat($amount, ['desc' => 'Completed Task X', 'txn_id' => str_random(16)]);
    dd(Auth::user()->balanceFloat);
 });
 Route::get('/fakewithdraw/{amount}', function($amount) {
     Auth::user()->withdrawFloat($amount, ['desc' => 'Withdraw to Bank Account', 'txn_id' => str_random(16)]);
     dd(Auth::user()->balanceFloat);
-});
+});*/
