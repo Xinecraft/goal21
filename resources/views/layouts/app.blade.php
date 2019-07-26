@@ -63,6 +63,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.5/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 @include('sweetalert::alert')
+
+@include('partials._adsinclude')
 <!-- endinject -->
 <!-- Plugin js for this page-->
 <!-- End plugin js for this page-->

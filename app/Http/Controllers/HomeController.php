@@ -278,7 +278,7 @@ class HomeController extends Controller
         }
 
         $validatedData = $request->validate([
-            'payment_method' => 'required|in:PAYTM,BANK,GOOGLE PAY',
+            'payment_method' => 'required|in:PAYTM,BANK,GOOGLE PAY,PHONE PE,UPI',
             'payment_screenshot' => 'required|image|max:500',
         ]);
 

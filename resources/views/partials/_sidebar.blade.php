@@ -123,7 +123,7 @@
         </li>
 
         <li class="nav-item">
-            <a target="_blank" class="nav-link" href="">
+            <a target="_blank" class="nav-link" href="javascript:void(Tawk_API.toggle())">
                 <i class="menu-icon mdi mdi-headset"></i>
                 <span class="menu-title">Raise a Ticket</span>
             </a>

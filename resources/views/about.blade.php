@@ -17,9 +17,10 @@
 			<nav class="header__menu">                                                                   
 				<ul>
 					<li><a class="header-link" href="{{ url('/') }}">HOME</a></li>
-					<li><a class="header-link" href="{{ route('aboutus') }}">ABOUT</a></li>
-					<li><a class="selected header-link" href="{{ route('terms') }}">TERMS</a></li>
+					<li><a class="selected header-link" href="{{ route('aboutus') }}">ABOUT</a></li>
+					<li><a class="header-link" href="{{ route('terms') }}">TERMS</a></li>
 					<li><a class="header-link" href="{{ route('faq') }}">FAQ</a></li>
+					<li><a href="#features" class="header-link">FEATURES</a><li>
 					<li class="header__btn header__btn--login"><a href="{{ route('login') }}">LOGIN</a></li>
 					<li class="header__btn header__btn--signup"><a href="{{ route('register') }}">REGISTER</a></li>
 				</ul>
@@ -30,20 +31,12 @@
 	<!-- Section -- intro -->
 	<section class="section section--intro" id="intro" style="height: auto;">
 		<div class="section__content section__content--fluid-width section__content--features">
-			<h1 class="section__title section__title--centered"> Terms and Conditions</h1>
-			<h3><li>
-					It is mandatory to complete the daily task else the money earned for the day will not be credit. </li><br>
-				<li> To get the additional incomes you must have to upgrade your I'd.</li><br>
-				<li> To withdraw your earnings you have to reach the minimum threshold amount.</li><br>
-				<li> Company has right to make any modification in the plan by any time without any prior notice. Company can be close their plan without any prior notice. </li><br>
-				<li> Any loss in earning due cyber attack or malware attack cannot be claimed.</li><br>
-				<li> There would be deduction of 5% admin charge, 5% TDS, 10% shopping wallet and 5% for social services at the time of withdrawl.</li><br>
-				<li> Your I'd will be permanently ban if you earn money by doing any kind of fake work or by doing fake joinings. You can not claim your I'd or your earnings after ban.</li><br>
-				<li> You must pay 149 rs to upgrade your I'd for additional earnings and after succesfully upgrade you cant claim it back in any circumstances.</li><br>
-				<li> Kyc is mandatory to all users before making withdrawl request.</li><br>
-				<li> You can't open or register more than one I'd from one device. If you caught doing this your I'd will be permanently banned without prior notice.</li><br>
-				<li> Your money can't be transferred if Your I'd name and date of birth not matched with your pan card.</li><br>
-				</h3>
+			<h1 class="section__title section__title--centered"> About Us</h1>
+			<<h2 class="section__description section__description--centered section__description--cta">
+				GOAL-21 is a digital platform for user where they earn income by registering their accounts free. We offer two types of accounts  to our users. Free or upgrade. Users earn income through digital marketing process. Digital marketing is very big platform to earn income. And our mission is to be a reputed company in digital marketing world. We upgrade our plan in future time to time to increase the incomes types for our users.
+
+				GOAL-21 is not only a name.  We have some targets/goals for 2021. Goal-21 is a part of parent company ATS ADD CLICK. ATS ADD CLICK is a registered firm.
+			</h2>
 		</div>
 
 
@@ -162,7 +155,6 @@
 
 
 	</footer>
-
 	@include('partials._adsinclude')
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery.paroller.min.js"></script>

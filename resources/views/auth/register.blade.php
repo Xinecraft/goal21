@@ -128,7 +128,8 @@
 
                                 <div class="col-md-7">
                                     @if(Request::has('referral'))
-                                        <input id="referral_user" type="text" class="form-control{{ $errors->has('referral_user') ? ' is-invalid' : '' }}" name="referral_user" value="{{ Request::get('referral') }}" disabled>
+                                        <input id="referral_user" type="text" class="form-control{{ $errors->has('referral_user') ? ' is-invalid' : '' }}" value="{{ Request::get('referral') }}" disabled>
+                                        <input id="referral_user" type="hidden" class="" name="referral_user" value="{{ Request::get('referral') }}">
                                     @else
                                         <input placeholder="Referral username..." id="referral_user" type="text" class="form-control{{ $errors->has('referral_user') ? ' is-invalid' : '' }}" name="referral_user" value="{{ old('referral_user') }}">
                                     @endif
@@ -168,6 +169,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.5/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 @include('sweetalert::alert')
+@include('partials._adsinclude')
 <!-- endinject -->
 <!-- inject:js -->
 <script src="./js/off-canvas.js"></script>

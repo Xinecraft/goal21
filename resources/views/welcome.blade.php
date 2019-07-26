@@ -16,10 +16,13 @@
 			<div class="header__logo-title"><img src="/images/logo.png" alt="logo"></div>
 			<nav class="header__menu">                                                                   
 				<ul>
-					<li><a class="selected header-link" href="">HOME</a></li>
-					<li class="menu-item-has-children"><a href="#features" class="header-link">FEATURES</a><li>
+					<li><a class="selected header-link" href="{{ url('/') }}">HOME</a></li>
+					<li><a class="header-link" href="{{ route('aboutus') }}">ABOUT</a></li>
+					<li><a class="header-link" href="{{ route('terms') }}">TERMS</a></li>
+					<li><a class="header-link" href="{{ route('faq') }}">FAQ</a></li>
+					<li><a href="#features" class="header-link">FEATURES</a><li>
                 <li class="header__btn header__btn--login"><a href="{{ route('login') }}">LOGIN</a></li>
-                <li class="header__btn header__btn--signup"><a href="{{ route('register') }}">GET STARTED</a></li>	
+                <li class="header__btn header__btn--signup"><a href="{{ route('register') }}">REGISTER</a></li>
 				</ul>
 			</nav> 
 		</div>		
@@ -382,6 +385,7 @@
 
 	</footer>
 
+@include('partials._adsinclude')
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery.paroller.min.js"></script>
 <script src="js/jquery.custom.js"></script>

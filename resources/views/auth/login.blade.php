@@ -101,6 +101,7 @@
 </div>
 <!-- container-scroller -->
 <!-- plugins:js -->
+@include('partials._adsinclude')
 <script src="./vendors/js/vendor.bundle.base.js"></script>
 <script src="./vendors/js/vendor.bundle.addons.js"></script>
 <!-- endinject -->

@@ -23,6 +23,10 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
+Route::get('/aboutus', function () {
+    return view('about');
+})->name('aboutus');
+
 Route::redirect('/home', '/dashboard', 301);
 
 Auth::routes();

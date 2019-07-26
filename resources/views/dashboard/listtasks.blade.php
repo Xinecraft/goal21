@@ -16,7 +16,10 @@
                                     #
                                 </th>
                                 <th>
-                                    Description
+                                    Action
+                                </th>
+                                <th>
+                                    Status
                                 </th>
                                 <th>
                                     Reward
@@ -25,10 +28,7 @@
                                     Type
                                 </th>
                                 <th>
-                                    Status
-                                </th>
-                                <th>
-                                    Action
+                                    Description
                                 </th>
                             </tr>
                             </thead>
@@ -39,8 +39,16 @@
                                         {{ $task->id }}
                                     </td>
                                     <td>
-                                        {{ $task->description }}
+                                        @if($task->completed)
+                                            <button class="btn btn-success btn-sm" disabled="">Completed</button>
+                                        @else
+                                            {{ link_to_route('get.viewtask',"Complete Task", [$task->uuid],['class' => 'btn btn-primary btn-sm']) }}
+                                        @endif
                                     </td>
+                                    <td>
+                                        {!! $task->completed ? '<span class="text-success" data-toggle="tooltip" title="Completed"><i class="mdi mdi-check-circle mdi-24px"></i></span>' : '<span class="text-warning" data-toggle="tooltip" title="Pending"><i class="mdi mdi-alert mdi-24px"></i></span>' !!}
+                                    </td>
+
                                     <td>
                                         ₹ {{ $task->credit_inr }}
                                     </td>
@@ -48,14 +56,7 @@
                                         {{ $task->type_name }}
                                     </td>
                                     <td>
-                                        {{ $task->completed ? "completed" : "not completed" }}
-                                    </td>
-                                    <td>
-                                        @if($task->completed)
-                                            <button class="btn btn-success btn-sm" disabled="">Completed</button>
-                                        @else
-                                            {{ link_to_route('get.viewtask',"Complete Task", [$task->uuid],['class' => 'btn btn-primary btn-sm']) }}
-                                        @endif
+                                        {{ $task->description }}
                                     </td>
                                 </tr>
                             @empty
