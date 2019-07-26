@@ -16,6 +16,9 @@
                             <thead>
                             <tr>
                                 <th>
+                                    #
+                                </th>
+                                <th>
                                     Username
                                 </th>
                                 <th>
@@ -39,6 +42,9 @@
                             @forelse($kycs as $kyc)
                                 <tr>
                                     <td class="py-1">
+                                        {{ $kyc->id }}
+                                    </td>
+                                    <td class="text-{{ $kyc->is_kyc <= 0 ? 'warning' : 'success' }}" style="font-weight: 600;">
                                         {{ $kyc->username }}
                                     </td>
                                     <td>
@@ -48,7 +54,7 @@
                                         ₹ {{ $kyc->balanceFloat }}
                                     </td>
                                     <td>
-                                        {{ $kyc->is_kyc }}
+                                        {!! $kyc->is_kyc > 0 ? "<span class='text-success'>Approved</span>" : "<span class='text-danger'>Pending</span>" !!}
                                     </td>
                                     <td>
                                         {{ $kyc->kyc_request_at->diffForHumans() }}

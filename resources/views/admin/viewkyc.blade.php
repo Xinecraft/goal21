@@ -15,7 +15,7 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">KYC DETAILS of {{ $kyc->username }}</h4>
+                <h4 class="card-title">KYC DETAILS of {{ $kyc->username }} {!! $kyc->is_kyc > 0 ? "(<span class='text-success'>Approved</span>)" : "(<span class='text-danger'>Pending Approval</span>)" !!}</h4>
                 <p class="card-description">
                     Personal info
                 </p>
