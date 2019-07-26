@@ -672,7 +672,7 @@ class HomeController extends Controller
             return $task;
             });
 
-        $allTasks = $this->paginateCollection($allTasks,$perPage = 4, $page = null, $options = []);
+        $allTasks = $this->paginateCollection($allTasks,$perPage = 6, $page = null, $options = []);
 
         return view('dashboard.listtasks')->with('tasks', $allTasks);
     }

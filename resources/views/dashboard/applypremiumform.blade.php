@@ -33,14 +33,13 @@
                                     <p>
                                         PayTM Number: 8053307200,
                                         9671860272,
-                                        8630613615 <br><br>
+                                        <br><br>
                                         Google Pay & PhonePe: 8053307200, 9671860272
                                     </p>
                                     <p>
                                         UPI ID: <br>
                                         8053307200@paytm <br>
-                                        9671860272@paytm <br>
-                                        8630613615@paytm
+                                        9671860272@paytm
                                     </p>
                                 </div>
                                 <div class="col-md-6 font-weight-bold">

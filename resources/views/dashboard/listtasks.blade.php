@@ -18,9 +18,9 @@
                                 <th>
                                     Action
                                 </th>
-                                <th>
+                                {{--<th>
                                     Status
-                                </th>
+                                </th>--}}
                                 <th>
                                     Reward
                                 </th>
@@ -40,15 +40,11 @@
                                     </td>
                                     <td>
                                         @if($task->completed)
-                                            <button class="btn btn-success btn-sm" disabled="">Completed</button>
+                                            <button class="btn btn-success btn-sm" disabled="" data-toggle="tooltip" title="Completed"><span class=""><i class="mdi mdi-check-circle"></i></span></button>
                                         @else
-                                            {{ link_to_route('get.viewtask',"Complete Task", [$task->uuid],['class' => 'btn btn-primary btn-sm']) }}
+                                            <a href="{{ route('get.viewtask', $task->uuid) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Pending"><span class=""><i class="mdi mdi-alert"></i></span></a>
                                         @endif
                                     </td>
-                                    <td>
-                                        {!! $task->completed ? '<span class="text-success" data-toggle="tooltip" title="Completed"><i class="mdi mdi-check-circle mdi-24px"></i></span>' : '<span class="text-warning" data-toggle="tooltip" title="Pending"><i class="mdi mdi-alert mdi-24px"></i></span>' !!}
-                                    </td>
-
                                     <td>
                                         ₹ {{ $task->credit_inr }}
                                     </td>
@@ -71,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="pull-right">
+    <div class="">
         {{ $tasks->render() }}
     </div>
 
