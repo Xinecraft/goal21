@@ -42,7 +42,7 @@ class ProcessWalletTwo extends Command
         $users = User::all();
         foreach ($users as $user)
         {
-            $user->depositFloat($user->wallet_two, ['desc' => 'Monthly revenue', 'txn_id' => str_random(16)]);
+            $user->depositFloat(round($user->wallet_two,2), ['desc' => 'Monthly revenue', 'txn_id' => str_random(16)]);
             $user->wallet_two = 0;
             $user->save();
         }

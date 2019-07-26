@@ -110,6 +110,7 @@ class ProcessWalletOne extends Command
                     while($tempUser->referredbyauto != null && $i <= 10);
                 }
             }
+            $user->wallet_two = round($user->wallet_two, 2);
             $user->total_task_pending = $tasksCount;
             $user->save();
         }

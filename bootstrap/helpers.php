@@ -3,7 +3,7 @@
 
 function getIndianStates()
 {
-    $indianStates = ['AR' => 'Arunachal Pradesh',
+    $indianStates = ['AP' => 'Andhra Pradesh',
         'AR' => 'Arunachal Pradesh',
         'AS' => 'Assam',
         'BR' => 'Bihar',

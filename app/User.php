@@ -194,6 +194,16 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
             return asset('images/defaultprofile/g732.png');
     }
 
+    public function getWalletTwoAttribute($value)
+    {
+        return round($value, 2);
+    }
+
+    public function getWalletOneAttribute($value)
+    {
+        return round($value, 2);
+    }
+
     /**
      * @return bool
      */

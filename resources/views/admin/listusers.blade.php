@@ -15,8 +15,11 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Phone</th>
                             <th>Status</th>
+                            <th>Premium</th>
                             <th>Created At</th>
+                            <th>Task Earning</th>
                             <th>Wallet Main</th>
                             <th>Total Payout</th>
                             <th>Action</th>
@@ -41,8 +44,11 @@
                     {data: 'full_name', name: 'full_name'},
                     {data: 'username', name: 'username'},
                     {data: 'email', name: 'email'},
+                    {data: 'phone_number', name: 'phone_number'},
                     {data: 'status', name: 'status'},
+                    {data: 'payment_confirmed', name: 'payment_confirmed'},
                     {data: 'created_at', name: 'created_at'},
+                    {data: 'wallet_two', name: 'wallet_two'},
                     {data: 'wallet', name: 'wallet'},
                     {data: 'total_income', name: 'total_income'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}

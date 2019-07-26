@@ -36,7 +36,7 @@
                             @forelse($paymentUsers as $user)
                                 <tr>
                                     <td class="py-1">
-                                        {{ $user->username }} <br>({{ $user->email }})
+                                        {{ $user->username }} <br>({{ $user->email }}) <br>Mobile: {{ $user->phone_number }}
                                     </td>
                                     <td>
                                         {{ $user->payment_applied_at }}
