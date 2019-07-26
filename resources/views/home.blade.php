@@ -77,14 +77,14 @@
                             <i class="mdi mdi-wallet text-danger icon-lg"></i>
                         </div>
                         <div class="float-right">
-                            <p class="mb-0 text-right">Today Earnings</p>
+                            <p class="mb-0 text-right">Self Earnings</p>
                             <div class="fluid-container">
                                 <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->wallet_one }}</h3>
                             </div>
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Today's Earnings
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Self Earnings
                     </p>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                             <i class="mdi mdi-wallet text-primary icon-lg"></i>
                         </div>
                         <div class="float-right">
-                            <p class="mb-0 text-right">Credit Earnings</p>
+                            <p class="mb-0 text-right">Tasks Earnings</p>
                             <div class="fluid-container">
                                 <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->wallet_two }}</h3>
                             </div>
@@ -117,7 +117,7 @@
                             <i class="mdi mdi-wallet text-success icon-lg"></i>
                         </div>
                         <div class="float-right">
-                            <p class="mb-0 text-right">Withdrawl Amount</p>
+                            <p class="mb-0 text-right">Cashout Wallet</p>
                             <div class="fluid-container">
                                 <h3 class="font-weight-medium text-right mb-0">₹{{ Auth::user()->balanceFloat }}</h3>
                             </div>

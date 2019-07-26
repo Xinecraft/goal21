@@ -10,17 +10,17 @@
                 <h4 class="card-title">TRANSACTIONS</h4>
 
                 <button type="button" class="btn btn-danger" disabled>
-                    <span>Today Earnings</span>
+                    <span>Self Earnings</span>
                     <span>₹{{ auth()->user()->wallet_one }}</span>
                 </button>
 
                 <button type="button" class="btn btn-primary" disabled>
-                    <span>Credit earnings</span>
+                    <span>Tasks Earnings</span>
                     <span>₹{{ auth()->user()->wallet_two }}</span>
                 </button>
 
                 <button type="button" class="btn btn-success" disabled>
-                    <span>Withdrawl Amount</span>
+                    <span>Cashout Wallet</span>
                     <span>₹{{ auth()->user()->balanceFloat }}</span>
                 </button>
 

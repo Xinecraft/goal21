@@ -9,17 +9,17 @@
                 <a href="{{ route('get.withdrawrequest') }}" class="btn btn-success btn-sm payedbutton float-right"><i class="mdi mdi-check"></i>Make Withdraw Request</a>
                 <h4 class="card-title">WITHDRAW REQUEST HISTORY</h4>
                 <button type="button" class="btn btn-danger" disabled>
-                    <span>Today Earnings</span>
+                    <span>Self Earnings</span>
                     <span>₹{{ auth()->user()->wallet_one }}</span>
                 </button>
 
                 <button type="button" class="btn btn-primary" disabled>
-                    <span>Credit earnings</span>
+                    <span>Tasks earnings</span>
                     <span>₹{{ auth()->user()->wallet_two }}</span>
                 </button>
 
                 <button type="button" class="btn btn-success" disabled>
-                    <span>Withdrawl Amount</span>
+                    <span>Cashout Wallet</span>
                     <span>₹{{ auth()->user()->balanceFloat }}</span>
                 </button>
                 @if($payments->total() > 0)
