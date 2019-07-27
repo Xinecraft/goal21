@@ -85,3 +85,6 @@ footer a
 .pull-left {
     float: left !important;
 }
+#timerForm {
+    display: none;
+}

@@ -16,7 +16,7 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/custom-q358dsdf.css">
     @yield('styles')
     <!-- endinject -->
     <link rel="shortcut icon" href="/images/favicon.png" />

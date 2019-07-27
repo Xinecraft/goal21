@@ -73,7 +73,6 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('#timerForm').hide();
             var window_focus = true;
             var myVar = setInterval(myTimer, 1000);
 
