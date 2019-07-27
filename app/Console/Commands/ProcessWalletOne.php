@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Task;
 use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class ProcessWalletOne extends Command
 {
@@ -46,11 +47,13 @@ class ProcessWalletOne extends Command
         {
             // If he has not completed all his task then flush his Day Earning.
             if ($user->total_task_pending > 0) {
+                Log::info($user->username." has not completed tasks. WalletOne: 0");
                 $user->wallet_one = 0;
             }
             // If he has completed his tasks so move day earning to month earning
             else {
                 // Move his wallet one to wallet two
+                Log::info($user->username." has completed tasks. Moving INR".$user->wallet_one. " to WalletTwo.");
                 $user->wallet_two += $user->wallet_one;
                 $user->wallet_one = 0;
 
@@ -75,7 +78,9 @@ class ProcessWalletOne extends Command
                     else $referralMoney = 0;
 
                     // Add to his second wallet
+                    Log::info("$referredby->username get INR $referralMoney for $user->username Task in Matrix");
                     $referredby->wallet_two += $referralMoney;
+                    $referredby->save();
 
                     // Set temp user to user 1 above for next iteration in tree
                     $tempUser = $referredby;
@@ -101,7 +106,9 @@ class ProcessWalletOne extends Command
                         $referralMoney = 0.50;
 
                         // Add to his second wallet
+                        Log::info("$referredbyauto->username get INR $referralMoney for $user->username Task in Autofill");
                         $referredbyauto->wallet_two += $referralMoney;
+                        $referredbyauto->save();
 
                         // Set temp user to user 1 above for next iteration in tree
                         $tempUser = $referredbyauto;
@@ -114,6 +121,7 @@ class ProcessWalletOne extends Command
             $user->total_task_pending = $tasksCount;
             $user->save();
         }
+        Log::info("WalletOne Cron Successful");
         $this->info('ProcessWalletOne ran successfully');
     }
 }

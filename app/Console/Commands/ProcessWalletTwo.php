@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Task;
 use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class ProcessWalletTwo extends Command
 {
@@ -46,6 +47,7 @@ class ProcessWalletTwo extends Command
             $user->wallet_two = 0;
             $user->save();
         }
+        Log::info("WalletTwo Cron Successful");
         $this->info('ProcessWalletTwo ran successfully');
     }
 }
