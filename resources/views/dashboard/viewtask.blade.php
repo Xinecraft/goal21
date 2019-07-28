@@ -53,6 +53,8 @@
             <h3 id="timerH3">Stay On this Page for <span class="label label-primary"
                                                          id="secondCounter">{{ $task->wait_in_seconds }}</span> Seconds
             </h3>
+            <b class="text-danger">Do some activity on the below website. Click on some links.</b>
+            <b class="text-danger">नीचे की वेबसाइट पर कुछ गतिविधि करें। कुछ लिंक पर क्लिक करें।</b>
         </div>
         <div class="row w-100 card text-center p-2">
             <iframe src="{{ $task->link }}" frameborder="0" height="700"></iframe>
