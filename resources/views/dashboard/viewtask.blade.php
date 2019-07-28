@@ -76,14 +76,6 @@
             var window_focus = true;
             var myVar = setInterval(myTimer, 1000);
 
-            /*$(window).focus(function () {
-                window_focus = true;
-            });
-
-            $(window).focusout(function () {
-                window_focus = false;
-            });*/
-
             var wait_in_seconds = {{ $task->wait_in_seconds }}
 
             function myTimer() {
@@ -92,9 +84,9 @@
                     $('#timerH3').text("Scroll to Bottom and Click 'Complete'");
                     $('#timerForm').show();
                 }
-                /*if (window_focus) {
+                if (window_focus) {
                     wait_in_seconds -= 1;
-                }*/
+                }
                 $('#secondCounter').html(wait_in_seconds);
             }
         });
