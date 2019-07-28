@@ -11,8 +11,9 @@
                         <p class="card-description">
                         <table class="table table-bordered">
                             <tr>
-                                <td class="py-1">
+                                <td class="py-1"><b>
                                     Wallet Balance: ₹ {{ auth()->user()->balanceFloat }}
+                                    </b>
                                 </td>
                                 <td>
                                     Preferred Method: {{ auth()->user()->preferred_payment_method }}
