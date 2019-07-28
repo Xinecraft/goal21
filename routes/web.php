@@ -72,6 +72,7 @@ Route::group(['prefix' => 'dashboard'], function(){
 Route::group(['prefix' => 'dashboard/admin'], function(){
     Route::get('kyc', 'AdminController@getKYCs')->name('admin.get.kyclist');
     Route::get('kyc/{username}', 'AdminController@getKYCDetail')->name('admin.get.kycdetail');
+    Route::post('kyc/approve/all', 'AdminController@postApproveAllKYC')->name('admin.post.approveallkyc');
     Route::post('kyc/{username}', 'AdminController@postActionOnKYC')->name('admin.post.kycdetail');
 
     Route::get('tasks/', 'AdminController@getListTasks')->name('admin.get.listtask');

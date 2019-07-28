@@ -75,6 +75,13 @@ class AdminController extends Controller
         }
     }
 
+    public function postApproveAllKYC()
+    {
+        User::where('is_kyc', '=', 0)->update(['is_kyc' => 1, 'is_profile_completed' => 1, 'kyc_approved_at' => Carbon::now()]);
+        toast('All KYC accepted successfully', 'success', 'top-right')->autoClose(5000);
+        return redirect()->route('admin.get.kyclist');
+    }
+
     public function getUsers()
     {
 
