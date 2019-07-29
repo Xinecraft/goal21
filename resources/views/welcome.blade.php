@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="css/swiper.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900" rel="stylesheet">
-
-    <script class="/js/Propellarnotificationads.js"></script>
 </head>
 <body>
 <header class="header">
