@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="propeller" content="14d892fceaa8932109c1df2b6d912b30">
     <title>@yield('title','Dashboard') - Goal21</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
