@@ -22,6 +22,7 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="/images/favicon.png" />
 
+    <script class="/js/Propellarnotificationads.js"></script>
     <script src="/vendors/js/vendor.bundle.base.js"></script>
     <script src="/vendors/js/vendor.bundle.addons.js"></script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
