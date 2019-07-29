@@ -25,6 +25,7 @@
     <script src="/vendors/js/vendor.bundle.base.js"></script>
     <script src="/vendors/js/vendor.bundle.addons.js"></script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="//phokukse.com/ntfc.php?p=2743737" data-cfasync="false" async></script>
 
     <script type="text/javascript">
         $.ajaxSetup({
