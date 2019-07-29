@@ -43,20 +43,21 @@ class ProcessWalletOne extends Command
         $tasksCount = Task::where('is_active', 1)->count();
         $users = User::all();
 
-        foreach ($users as $user)
-        {
+        foreach ($users as $user) {
+            Log::info("=====SELF EARNING=====");
             // If he has not completed all his task then flush his Day Earning.
             if ($user->total_task_pending > 0) {
-                Log::info($user->username." has not completed tasks. WalletOne: 0");
+                Log::info($user->username . " has not completed tasks. WalletOne: 0");
                 $user->wallet_one = 0;
-            }
-            // If he has completed his tasks so move day earning to month earning
+            } // If he has completed his tasks so move day earning to month earning
             else {
                 // Move his wallet one to wallet two
-                Log::info($user->username." has completed tasks. Moving INR".$user->wallet_one. " to WalletTwo.");
+                Log::info($user->username . " has completed tasks. Moving INR" . $user->wallet_one . " to WalletTwo.");
                 $user->wallet_two += $user->wallet_one;
                 $user->wallet_one = 0;
 
+
+                Log::info("=====MATRIX EARNING=====");
                 /**
                  * Lets add money to his Matrix referrers too. Upto 7 levels
                  */
@@ -64,8 +65,7 @@ class ProcessWalletOne extends Command
                 $tempUser = $user;
                 // Task Payment Data Creation Iteration Logic for Each User.
                 $i = 1;
-                do
-                {
+                do {
                     // Get Referral User from previous user.
                     $referredby = $tempUser->referredby;
 
@@ -74,48 +74,51 @@ class ProcessWalletOne extends Command
                     else if (in_array($i, [2])) $referralMoney = 1;
                     else if (in_array($i, [3])) $referralMoney = 0.75;
                     else if (in_array($i, [4])) $referralMoney = 0.5;
-                    else if (in_array($i, [5,6,7])) $referralMoney = 0.3;
+                    else if (in_array($i, [5, 6, 7])) $referralMoney = 0.3;
                     else $referralMoney = 0;
 
                     // Add to his second wallet
-                    Log::info("$referredby->username get INR $referralMoney for $user->username Task in Matrix");
-                    $referredby->wallet_two += $referralMoney;
+                    if ($referredby->total_task_pending > 0) {
+                        Log::info("$referredby->username get INR 0 for $user->username Task in Matrix. Reason: Self task not done");
+                    } else {
+                        Log::info("$referredby->username get INR $referralMoney for $user->username Task in Matrix");
+                        $referredby->wallet_two += $referralMoney;
+                    }
                     $referredby->save();
 
                     // Set temp user to user 1 above for next iteration in tree
                     $tempUser = $referredby;
                     ++$i;
-                }
-                while($tempUser->referredby != null && $i <= 7);
+                } while ($tempUser->referredby != null && $i <= 7);
 
+                Log::info("=====AUTOFILL EARNING=====");
                 /**
                  * If user is premium then lets add money to his autofill referrers too. Upto 10 Levels
                  */
-                if ($user->payment_confirmed > 0)
-                {
-                    // Make a copy of User
-                    $tempUser = $user;
-                    // Task Payment Data Creation Iteration Logic for Each User.
-                    $i = 1;
-                    do
-                    {
-                        // Get Referral User from previous user.
-                        $referredbyauto = $tempUser->referredbyauto;
+                // Make a copy of User
+                $tempUser = $user;
+                // Task Payment Data Creation Iteration Logic for Each User.
+                $i = 1;
+                do {
+                    // Get Referral User from previous user.
+                    $referredbyauto = $tempUser->referredbyauto;
 
-                        // Calculate Sum based of Level and give amount as stated in his business logic
-                        $referralMoney = 0.50;
+                    // Calculate Sum based of Level and give amount as stated in his business logic
+                    $referralMoney = 0.50;
 
-                        // Add to his second wallet
+                    // Add to his second wallet
+                    if ($referredbyauto->total_task_pending > 0 || $referredbyauto->payment_confirmed <= 0) {
+                        Log::info("$referredbyauto->username get INR 0 for $user->username Task in Autofill. Reason: Self task not done/Not Premium");
+                    } else {
                         Log::info("$referredbyauto->username get INR $referralMoney for $user->username Task in Autofill");
                         $referredbyauto->wallet_two += $referralMoney;
-                        $referredbyauto->save();
-
-                        // Set temp user to user 1 above for next iteration in tree
-                        $tempUser = $referredbyauto;
-                        ++$i;
                     }
-                    while($tempUser->referredbyauto != null && $i <= 10);
-                }
+                    $referredbyauto->save();
+
+                    // Set temp user to user 1 above for next iteration in tree
+                    $tempUser = $referredbyauto;
+                    ++$i;
+                } while ($tempUser->referredbyauto != null && $i <= 10);
             }
             $user->wallet_two = round($user->wallet_two, 2);
             $user->total_task_pending = $tasksCount;

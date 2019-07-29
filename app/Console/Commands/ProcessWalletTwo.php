@@ -43,6 +43,7 @@ class ProcessWalletTwo extends Command
         $users = User::all();
         foreach ($users as $user)
         {
+            Log::info("Task Earning INR $user->wallet_two of $user->username is moved to Final Wallet");
             $user->depositFloat(round($user->wallet_two,2), ['desc' => 'Monthly revenue', 'txn_id' => str_random(16)]);
             $user->wallet_two = 0;
             $user->save();
