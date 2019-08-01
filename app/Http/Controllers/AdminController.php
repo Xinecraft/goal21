@@ -209,7 +209,7 @@ class AdminController extends Controller
      */
     public function anyListUsers()
     {
-        $users = User::select(['id', 'full_name', 'username', 'email', 'phone_number', 'created_at', 'total_income', 'status', 'wallet_one', 'wallet_two', 'payment_confirmed']);
+        $users = User::select(['id', 'full_name', 'username', 'email', 'phone_number', 'created_at', 'total_income', 'status', 'wallet_one', 'wallet_two', 'wallet_three', 'payment_confirmed']);
 
         return Datatables::of($users)
             ->addColumn('action', function ($user) {

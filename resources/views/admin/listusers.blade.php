@@ -20,6 +20,7 @@
                             <th>Premium</th>
                             <th>Created At</th>
                             <th>Task Earning</th>
+                            <th>Ref. Earning</th>
                             <th>Wallet Main</th>
                             <th>Total Payout</th>
                             <th>Action</th>
@@ -49,6 +50,7 @@
                     {data: 'payment_confirmed', name: 'payment_confirmed'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'wallet_two', name: 'wallet_two'},
+                    {data: 'wallet_three', name: 'wallet_three'},
                     {data: 'wallet', name: 'wallet'},
                     {data: 'total_income', name: 'total_income'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}

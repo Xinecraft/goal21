@@ -19,6 +19,11 @@
                     <span>₹{{ auth()->user()->wallet_two }}</span>
                 </button>
 
+                <button type="button" class="btn btn-warning" disabled>
+                    <span>Referral Earnings</span>
+                    <span>₹{{ auth()->user()->wallet_three }}</span>
+                </button>
+
                 <button type="button" class="btn btn-success" disabled>
                     <span>Cashout Wallet</span>
                     <span>₹{{ auth()->user()->balanceFloat }}</span>

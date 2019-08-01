@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\ProcessWalletOne;
+use App\Console\Commands\ProcessWalletThree;
 use App\Console\Commands\ProcessWalletTwo;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -17,7 +18,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ProcessWalletOne::class,
-        ProcessWalletTwo::class
+        ProcessWalletTwo::class,
+        ProcessWalletThree::class
     ];
 
     /**
@@ -34,6 +36,8 @@ class Kernel extends ConsoleKernel
         })->daily();
         // Must run second. and daily at 0:0
         $schedule->command('process:wallettwo')->monthlyOn(10);
+        // Second
+        $schedule->command('process:walletthree')->weeklyOn(5);
         // Must run at last
         $schedule->command('process:walletone')->daily();
     }

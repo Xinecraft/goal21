@@ -53,8 +53,10 @@ class AddMoneyToReferrers
             else if (in_array($i, [6,7])) $referralMoney = 5;
             else $referralMoney = 0;
 
-            // Add to his main wallet
-            $referredby->depositFloat($referralMoney, ['desc' => "New premium user $user->username referral income", 'txn_id' => str_random(16)]);
+            // Add to his 3rd wallet
+            $referredby->wallet_three += $referralMoney;
+            $referredby->save();
+            //$referredby->depositFloat($referralMoney, ['desc' => "New premium user $user->username referral income", 'txn_id' => str_random(16)]);
 
             // Set temp user to user 1 above for next iteration in tree
             $tempUser = $referredby;

@@ -68,14 +68,12 @@ class HomeController extends Controller
 
     public function getCompleteProfile(Request $request)
     {
-        if ($request->user()->is_kyc >= 0)
-        {
-            alert()->warning('Already Done!','You have already completed that. Visit Edit Profile section to make any changes.');
+        if ($request->user()->is_kyc >= 0) {
+            alert()->warning('Already Done!', 'You have already completed that. Visit Edit Profile section to make any changes.');
             return redirect()->route('dashboard');
         }
-        if (SiteSetting::getSetting('kyc_request_status') == 'no')
-        {
-            alert()->error('KYC Request Closed!','We are not accepted KYC Request right now. Please try again later.');
+        if (SiteSetting::getSetting('kyc_request_status') == 'no') {
+            alert()->error('KYC Request Closed!', 'We are not accepted KYC Request right now. Please try again later.');
             return redirect()->route('dashboard');
         }
 
@@ -84,9 +82,8 @@ class HomeController extends Controller
 
     public function postCompleteProfile(CompleteProfile $request)
     {
-        if (SiteSetting::getSetting('kyc_request_status') == 'no')
-        {
-            alert()->error('KYC Request Closed!','We are not accepted KYC Request right now. Please try again later.');
+        if (SiteSetting::getSetting('kyc_request_status') == 'no') {
+            alert()->error('KYC Request Closed!', 'We are not accepted KYC Request right now. Please try again later.');
             return redirect()->route('dashboard');
         }
 
@@ -153,8 +150,7 @@ class HomeController extends Controller
         /**
          * Check if payment_confirmed == true and if yes then mark user as Active.
          */
-        if($user->payment_confirmed)
-        {
+        if ($user->payment_confirmed) {
             $user->activated_at = Carbon::now();
             $user->status = 1;
         }
@@ -175,8 +171,7 @@ class HomeController extends Controller
      */
     public function getAddMember(Request $request)
     {
-        if(!$request->user()->isAdmin())
-        {
+        if (!$request->user()->isAdmin()) {
             alert()->error('Unauthorized!', 'You are not authorized to view the page.')->showCancelButton("Close")->autoClose(10000);
             return redirect()->route('dashboard');
         }
@@ -191,9 +186,9 @@ class HomeController extends Controller
     public function postAddMember(AddNewMember $request)
     {
         $uuid = Uuid::generate(4);
-        $username = "GL" . strtoupper(mt_rand(100000,999999));
+        $username = "GL" . strtoupper(mt_rand(100000, 999999));
         while (User::whereUsername($username)->first() != null) {
-            $username = "GL" . strtoupper(mt_rand(100000,999999));
+            $username = "GL" . strtoupper(mt_rand(100000, 999999));
         }
         $password = str_random(10);
 
@@ -250,14 +245,12 @@ class HomeController extends Controller
 
     public function getPremiumApplyForm()
     {
-        if (SiteSetting::getSetting('allow_upgradation_of_accounts') == 'no')
-        {
-            alert()->error('Ops!','We are not accepting to Upgrade Accounts right now. Please try again later.');
+        if (SiteSetting::getSetting('allow_upgradation_of_accounts') == 'no') {
+            alert()->error('Ops!', 'We are not accepting to Upgrade Accounts right now. Please try again later.');
             return redirect()->route('dashboard');
         }
 
-        if (auth()->user()->payment_confirmed >= 0)
-        {
+        if (auth()->user()->payment_confirmed >= 0) {
             return redirect()->route('dashboard');
         }
 
@@ -266,14 +259,12 @@ class HomeController extends Controller
 
     public function postPremiumApplyForm(Request $request)
     {
-        if (SiteSetting::getSetting('allow_upgradation_of_accounts') == 'no')
-        {
-            alert()->error('Ops!','We are not accepting to Upgrade Accounts right now. Please try again later.');
+        if (SiteSetting::getSetting('allow_upgradation_of_accounts') == 'no') {
+            alert()->error('Ops!', 'We are not accepting to Upgrade Accounts right now. Please try again later.');
             return redirect()->route('dashboard');
         }
 
-        if (auth()->user()->payment_confirmed >= 0)
-        {
+        if (auth()->user()->payment_confirmed >= 0) {
             return redirect()->route('dashboard');
         }
 
@@ -284,7 +275,7 @@ class HomeController extends Controller
 
         $user = $request->user();
 
-        $screenshotName = $request->user()->username."_payment_info.".$request->file('payment_screenshot')->getClientOriginalExtension();
+        $screenshotName = $request->user()->username . "_payment_info." . $request->file('payment_screenshot')->getClientOriginalExtension();
         $payment_screenshot = $request->file('payment_screenshot')->move(storage_path('app/public/'), $screenshotName);
         $payment_screenshot = $payment_screenshot->getFilename();
 
@@ -294,7 +285,7 @@ class HomeController extends Controller
         $user->payment_screenshot = $payment_screenshot;
         $user->save();
 
-        alert()->success('Congrats!','You have successfully applied for account upgrade.');
+        alert()->success('Congrats!', 'You have successfully applied for account upgrade.');
         return redirect()->route('dashboard');
     }
 
@@ -312,9 +303,8 @@ class HomeController extends Controller
             alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
             return redirect()->back();
         }
-        if (SiteSetting::getSetting('payout_request_status') == 'no')
-        {
-            alert()->error('Payout Request Closed!','We are not accepting Payout Request right now. Please try again later.');
+        if (SiteSetting::getSetting('payout_request_status') == 'no') {
+            alert()->error('Payout Request Closed!', 'We are not accepting Payout Request right now. Please try again later.');
             return redirect()->route('dashboard');
         }
 
@@ -326,7 +316,7 @@ class HomeController extends Controller
         if ($request->user()->upi_id)
             $selector = array_add($selector, 'UPI', 'UPI ID');
 
-        $paymentAmountOptions = [100 => '₹100', 200 => '₹200', 300 => '₹300', 500 => '₹500',1000 => '₹1000',2000 => '₹2000',5000 => '₹5000',10000 => '₹10,000',15000 => '₹15,000',20000 => '₹20,000',30000 => '₹30,000',40000 => '₹40,000',50000 => '₹50,000'];
+        $paymentAmountOptions = [100 => '₹100', 200 => '₹200', 300 => '₹300', 500 => '₹500', 1000 => '₹1000', 2000 => '₹2000', 5000 => '₹5000', 10000 => '₹10,000', 15000 => '₹15,000', 20000 => '₹20,000', 30000 => '₹30,000', 40000 => '₹40,000', 50000 => '₹50,000'];
 
         return view('dashboard.withdrawrequestform')->with('selector', $selector)->with('paymentAmountOptions', $paymentAmountOptions);
     }
@@ -345,9 +335,8 @@ class HomeController extends Controller
             alert()->error('Error!', 'You need to complete KYC before withdraw')->autoClose(5000);
             return redirect()->back();
         }
-        if (SiteSetting::getSetting('payout_request_status') == 'no')
-        {
-            alert()->error('Payout Request Closed!','We are not accepted Payout Request right now. Please try again later.');
+        if (SiteSetting::getSetting('payout_request_status') == 'no') {
+            alert()->error('Payout Request Closed!', 'We are not accepted Payout Request right now. Please try again later.');
             return redirect()->route('dashboard');
         }
 
@@ -400,7 +389,7 @@ class HomeController extends Controller
         $paymentData = Payment::create($createArray);
 
         // Remove that amount from Wallet.
-        $request->user()->withdrawFloat($request->payment_amount, ['desc' => 'Withdraw Request ID: '.$paymentData->id, 'txn_id' => strtoupper(str_random(16)) ]);
+        $request->user()->withdrawFloat($request->payment_amount, ['desc' => 'Withdraw Request ID: ' . $paymentData->id, 'txn_id' => strtoupper(str_random(16))]);
 
         // Notification to receiver that payment is done and need verification.
         //$request->user()->notify(new PaymentSent($paymentData));
@@ -416,7 +405,7 @@ class HomeController extends Controller
     public function getViewWithdrawRequests(Request $request)
     {
         $payments = $request->user()->payments()->latest()->paginate(10);
-        return view('dashboard.withdrawrequests')->with('payments',$payments);
+        return view('dashboard.withdrawrequests')->with('payments', $payments);
     }
 
     /**
@@ -430,9 +419,8 @@ class HomeController extends Controller
         $sender = $payment->sender;
 
         // If already mark as paid. Abort
-        if($payment->payment_status > 0)
-        {
-            alert()->error('Error!','Payment is already marked as paid.')->showCancelButton('Close')->autoClose(5000);
+        if ($payment->payment_status > 0) {
+            alert()->error('Error!', 'Payment is already marked as paid.')->showCancelButton('Close')->autoClose(5000);
             return redirect()->back();
         }
 
@@ -456,15 +444,13 @@ class HomeController extends Controller
 
                 // Check if this is the last pending Payment for the Sender. true = is last , false = nope
                 // If yes then set payment_confirmed = true for the Sender.
-                $isLast = $sender->payments_send->reject(function ($p){
+                $isLast = $sender->payments_send->reject(function ($p) {
                     return $p->payment_status == 1;
                 });
-                if($isLast->isEmpty())
-                {
+                if ($isLast->isEmpty()) {
                     $sender->payment_confirmed = true;
                     // Check if is_profile_completed and if yes then Mark user as Active
-                    if($sender->is_profile_completed)
-                    {
+                    if ($sender->is_profile_completed) {
                         $sender->activated_at = Carbon::now();
                         $sender->status = 1;
                     }
@@ -508,7 +494,7 @@ class HomeController extends Controller
     public function getNotifications(Request $request)
     {
         $notifications = $request->user()->notifications()->latest()->paginate(15);
-        return view('dashboard.notifications')->with('notifications',$notifications);
+        return view('dashboard.notifications')->with('notifications', $notifications);
     }
 
     /**
@@ -526,23 +512,21 @@ class HomeController extends Controller
      */
     public function postResetPassword(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'password' => 'required|confirmed|min:6'
         ]);
         $user = $request->user();
-        if($request->curr_password == $request->password)
-        {
-            alert()->error('Error!','Current Password & New Password cannot be same.')->showCancelButton('Close')->autoClose(5000);
+        if ($request->curr_password == $request->password) {
+            alert()->error('Error!', 'Current Password & New Password cannot be same.')->showCancelButton('Close')->autoClose(5000);
             return redirect()->back();
         }
-        if(Hash::check($request->curr_password, $user->password))
-        {
+        if (Hash::check($request->curr_password, $user->password)) {
             $user->password = Hash::make($request->password);
             $user->save();
-            alert()->success('Password Updated!','You have successfully updated your password.')->showCancelButton('Close')->autoClose(5000);
+            alert()->success('Password Updated!', 'You have successfully updated your password.')->showCancelButton('Close')->autoClose(5000);
             return redirect()->route('dashboard');
         }
-        alert()->error('Error!','Current Password did not match our records.')->showCancelButton('Close')->autoClose(5000);
+        alert()->error('Error!', 'Current Password did not match our records.')->showCancelButton('Close')->autoClose(5000);
         return redirect()->back();
     }
 
@@ -552,8 +536,7 @@ class HomeController extends Controller
      */
     public function getEditProfile(Request $request)
     {
-        if(!$request->user()->is_profile_completed)
-        {
+        if (!$request->user()->is_profile_completed) {
             alert()->error('User not Active!', 'Please go ahead and complete KYC to enable Edit Option');
             return redirect()->route('dashboard');
         }
@@ -606,7 +589,7 @@ class HomeController extends Controller
                 $profile_pic = null;
             }
         } else {
-            $profile_pic = $user->photo ? $user->photo : null ;
+            $profile_pic = $user->photo ? $user->photo : null;
         }
 
         $user->full_name = $full_name;
@@ -663,16 +646,15 @@ class HomeController extends Controller
         $tasks = Task::all();
         $completedTasks = $request->user()->tasks;
 
-        $allTasks = $tasks->map(function($task) use ($completedTasks){
+        $allTasks = $tasks->map(function ($task) use ($completedTasks) {
             $task->completed = false;
-            if($completedTasks->contains($task))
-            {
+            if ($completedTasks->contains($task)) {
                 $task->completed = true;
             }
             return $task;
-            });
+        });
 
-        $allTasks = $this->paginateCollection($allTasks,$perPage = 6, $page = null, $options = []);
+        $allTasks = $this->paginateCollection($allTasks, $perPage = 6, $page = null, $options = []);
 
         return view('dashboard.listtasks')->with('tasks', $allTasks);
     }
@@ -682,8 +664,7 @@ class HomeController extends Controller
         $task = Task::whereUuid($uuid)->firstorFail();
         $completedTasks = $request->user()->tasks;
         $task->completed = false;
-        if($completedTasks->contains($task))
-        {
+        if ($completedTasks->contains($task)) {
             $task->completed = true;
         }
         return view('dashboard.viewtask')->with('task', $task);
@@ -694,9 +675,8 @@ class HomeController extends Controller
         $user = $request->user();
         $task = Task::whereUuid($uuid)->firstorFail();
         $completedTasks = $user->tasks;
-        if($completedTasks->contains($task))
-        {
-            alert()->warning('Already Completed!','Your have already completed this Task')->showCancelButton('Close')->autoClose(5000);
+        if ($completedTasks->contains($task)) {
+            alert()->warning('Already Completed!', 'Your have already completed this Task')->showCancelButton('Close')->autoClose(5000);
             return redirect()->route('get.golisttasks');
         }
         $user->tasks()->attach($task, ['status' => 1]);
@@ -706,16 +686,16 @@ class HomeController extends Controller
         }
 
         // If user is not premium then only add money to his wallet. Premium user dont get money for his own tasks, only team tasks
-        if ($user->payment_confirmed < 1)
-        {
-            $user->wallet_one += $task->credit_inr;
-        }
+        /*if ($user->payment_confirmed < 1)
+        {*/
+        $user->wallet_one += $task->credit_inr;
+        /*}*/
         $user->save();
 
         $task->total_impression += 1;
         $task->save();
 
-        alert()->success('Congrats!','You have successfully completed the task')->showCancelButton('Close')->autoClose(5000);
+        alert()->success('Congrats!', 'You have successfully completed the task')->showCancelButton('Close')->autoClose(5000);
         return redirect()->route('get.golisttasks');
     }
 
@@ -726,44 +706,38 @@ class HomeController extends Controller
         $levelArray[1] = $user->referrals;
 
         $levelArray[2] = [];
-        foreach($levelArray[1] as $user)
-        {
-            foreach($user->referrals as $referral)
+        foreach ($levelArray[1] as $user) {
+            foreach ($user->referrals as $referral)
                 array_push($levelArray[2], $referral);
         }
 
         $levelArray[3] = [];
-        foreach($levelArray[2] as $user)
-        {
-            foreach($user->referrals as $referral)
+        foreach ($levelArray[2] as $user) {
+            foreach ($user->referrals as $referral)
                 array_push($levelArray[3], $referral);
         }
 
         $levelArray[4] = [];
-        foreach($levelArray[3] as $user)
-        {
-            foreach($user->referrals as $referral)
+        foreach ($levelArray[3] as $user) {
+            foreach ($user->referrals as $referral)
                 array_push($levelArray[4], $referral);
         }
 
         $levelArray[5] = [];
-        foreach($levelArray[4] as $user)
-        {
-            foreach($user->referrals as $referral)
+        foreach ($levelArray[4] as $user) {
+            foreach ($user->referrals as $referral)
                 array_push($levelArray[5], $referral);
         }
 
         $levelArray[6] = [];
-        foreach($levelArray[5] as $user)
-        {
-            foreach($user->referrals as $referral)
+        foreach ($levelArray[5] as $user) {
+            foreach ($user->referrals as $referral)
                 array_push($levelArray[6], $referral);
         }
 
         $levelArray[7] = [];
-        foreach($levelArray[6] as $user)
-        {
-            foreach($user->referrals as $referral)
+        foreach ($levelArray[6] as $user) {
+            foreach ($user->referrals as $referral)
                 array_push($levelArray[7], $referral);
         }
 
@@ -777,65 +751,56 @@ class HomeController extends Controller
         $levelArray[1] = $user->referralsauto;
 
         $levelArray[2] = [];
-        foreach($levelArray[1] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[1] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[2], $referral);
         }
 
         $levelArray[3] = [];
-        foreach($levelArray[2] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[2] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[3], $referral);
         }
 
         $levelArray[4] = [];
-        foreach($levelArray[3] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[3] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[4], $referral);
         }
 
         $levelArray[5] = [];
-        foreach($levelArray[4] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[4] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[5], $referral);
         }
 
         $levelArray[6] = [];
-        foreach($levelArray[5] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[5] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[6], $referral);
         }
 
         $levelArray[7] = [];
-        foreach($levelArray[6] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[6] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[7], $referral);
         }
 
         $levelArray[8] = [];
-        foreach($levelArray[7] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[7] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[8], $referral);
         }
 
         $levelArray[9] = [];
-        foreach($levelArray[8] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[8] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[9], $referral);
         }
 
         $levelArray[10] = [];
-        foreach($levelArray[9] as $user)
-        {
-            foreach($user->referralsauto as $referral)
+        foreach ($levelArray[9] as $user) {
+            foreach ($user->referralsauto as $referral)
                 array_push($levelArray[10], $referral);
         }
 
