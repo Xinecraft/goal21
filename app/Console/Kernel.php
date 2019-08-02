@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('process:walletone')->daily();
         $schedule->command('process:walletthree')->weeklyOn(5, '0:30');
-        $schedule->command('process:wallettwo')->monthlyOn(10, '0:59');
+        //$schedule->command('process:wallettwo')->monthlyOn(10, '0:59');
     }
 
     /**
