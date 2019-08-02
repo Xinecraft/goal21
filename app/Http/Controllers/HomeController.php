@@ -684,12 +684,7 @@ class HomeController extends Controller
         if ($user->total_task_pending > 0) {
             $user->total_task_pending -= 1;
         }
-
-        // If user is not premium then only add money to his wallet. Premium user dont get money for his own tasks, only team tasks
-        /*if ($user->payment_confirmed < 1)
-        {*/
         $user->wallet_one += $task->credit_inr;
-        /*}*/
         $user->save();
 
         $task->total_impression += 1;

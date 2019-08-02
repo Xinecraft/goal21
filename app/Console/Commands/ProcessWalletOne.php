@@ -52,7 +52,7 @@ class ProcessWalletOne extends Command
             } // If he has completed his tasks so move day earning to month earning
             else {
                 // Move his wallet one to wallet two
-                Log::info($user->username . " has completed tasks. Moving INR" . $user->wallet_one . " to WalletTwo.");
+                Log::info($user->username . " has completed tasks. Moving INR " . $user->wallet_one . " to WalletTwo.");
                 $user->wallet_two += $user->wallet_one;
                 $user->wallet_one = 0;
 
@@ -65,7 +65,7 @@ class ProcessWalletOne extends Command
                 $tempUser = $user;
                 // Task Payment Data Creation Iteration Logic for Each User.
                 $i = 1;
-                do {
+                while ($tempUser->referredby != null && $i <= 7) {
                     // Get Referral User from previous user.
                     $referredby = $tempUser->referredby;
 
@@ -89,7 +89,7 @@ class ProcessWalletOne extends Command
                     // Set temp user to user 1 above for next iteration in tree
                     $tempUser = $referredby;
                     ++$i;
-                } while ($tempUser->referredby != null && $i <= 7);
+                }
 
                 Log::info("=====AUTOFILL EARNING=====");
                 /**
@@ -99,7 +99,7 @@ class ProcessWalletOne extends Command
                 $tempUser = $user;
                 // Task Payment Data Creation Iteration Logic for Each User.
                 $i = 1;
-                do {
+                while ($tempUser->referredbyauto != null && $i <= 10){
                     // Get Referral User from previous user.
                     $referredbyauto = $tempUser->referredbyauto;
 
@@ -118,7 +118,7 @@ class ProcessWalletOne extends Command
                     // Set temp user to user 1 above for next iteration in tree
                     $tempUser = $referredbyauto;
                     ++$i;
-                } while ($tempUser->referredbyauto != null && $i <= 10);
+                }
             }
             $user->wallet_two = round($user->wallet_two, 2);
             $user->total_task_pending = $tasksCount;

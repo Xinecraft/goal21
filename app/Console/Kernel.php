@@ -34,12 +34,10 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             DB::table('task_user')->delete();
         })->daily();
-        // Must run second. and daily at 0:0
-        $schedule->command('process:wallettwo')->monthlyOn(10);
-        // Second
-        $schedule->command('process:walletthree')->weeklyOn(5);
-        // Must run at last
+
         $schedule->command('process:walletone')->daily();
+        $schedule->command('process:walletthree')->weeklyOn(5, '0:30');
+        $schedule->command('process:wallettwo')->monthlyOn(10, '0:59');
     }
 
     /**
