@@ -41,8 +41,7 @@ class AddMoneyToReferrers
         $tempUser = $user;
         // Payment Data Creation Iteration Logic for Each User.
         $i = 1;
-        do
-        {
+        while($tempUser->referredby != null && $i <= 7){
             // Get Referral User from previous user.
             $referredby = $tempUser->referredby;
 
@@ -62,6 +61,5 @@ class AddMoneyToReferrers
             $tempUser = $referredby;
             ++$i;
         }
-        while($tempUser->referredby != null && $i <= 7);
     }
 }

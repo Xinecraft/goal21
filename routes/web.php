@@ -120,3 +120,28 @@ Route::get('/fakewithdraw/{amount}', function($amount) {
     Auth::user()->withdrawFloat($amount, ['desc' => 'Withdraw to Bank Account', 'txn_id' => str_random(16)]);
     dd(Auth::user()->balanceFloat);
 });*/
+
+Route::get('/completeTask/{username}', function($user) {
+    $user = \App\User::whereUsername($user)->firstOrFail();
+    $tasks = App\Task::where('is_active', 1)->get();
+    $completedTasks = $user->tasks;
+
+    foreach ($tasks as $task)
+    {
+        if ($completedTasks->contains($task)) {
+            continue;
+        }
+        $user->tasks()->attach($task, ['status' => 1]);
+        // Only decrease if it is more than 0 to avoid negative error issue
+        if ($user->total_task_pending > 0) {
+            $user->total_task_pending -= 1;
+        }
+        $user->wallet_one += $task->credit_inr;
+        $user->save();
+
+        $task->total_impression += 1;
+        $task->save();
+    }
+
+    return 1;
+});

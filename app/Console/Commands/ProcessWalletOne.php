@@ -79,7 +79,7 @@ class ProcessWalletOne extends Command
 
                     // Add to his second wallet
                     if ($referredby->total_task_pending > 0) {
-                        Log::info("$referredby->username get INR 0 for $user->username Task in Matrix. Reason: Self task not done");
+                        Log::info("$referredby->username get INR 0 for $user->username Task ($referredby->total_task_pending pending) in Matrix. Reason: Self task not done");
                     } else {
                         Log::info("$referredby->username get INR $referralMoney for $user->username Task in Matrix");
                         $referredby->wallet_two += $referralMoney;
@@ -108,7 +108,7 @@ class ProcessWalletOne extends Command
 
                     // Add to his second wallet
                     if ($referredbyauto->total_task_pending > 0 || $referredbyauto->payment_confirmed <= 0) {
-                        Log::info("$referredbyauto->username get INR 0 for $user->username Task in Autofill. Reason: Self task not done/Not Premium");
+                        Log::info("$referredbyauto->username get INR 0 for $user->username Task ($referredbyauto->total_task_pending) in Autofill. Reason: Self task not done/Not Premium");
                     } else {
                         Log::info("$referredbyauto->username get INR $referralMoney for $user->username Task in Autofill");
                         $referredbyauto->wallet_two += $referralMoney;
@@ -121,9 +121,11 @@ class ProcessWalletOne extends Command
                 }
             }
             $user->wallet_two = round($user->wallet_two, 2);
-            $user->total_task_pending = $tasksCount;
             $user->save();
         }
+
+        User::where('total_task_pending', '>', 0)->update(['total_task_pending' => $tasksCount]);
+
         Log::info("WalletOne Cron Successful");
         $this->info('ProcessWalletOne ran successfully');
     }
