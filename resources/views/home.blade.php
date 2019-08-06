@@ -101,6 +101,19 @@
                 </div>
             </div>
         </div>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Square -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7092046166701332"
+             data-ad-slot="4259765943"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
             <div class="card card-statistics">
                 <div class="card-body">
@@ -288,6 +301,18 @@
             </div>
         @endfor
     </div>--}}
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Square -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7092046166701332"
+         data-ad-slot="4259765943"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 
     <div class="row col-sm-12">
         <div class="panel card" style="padding: 10px">

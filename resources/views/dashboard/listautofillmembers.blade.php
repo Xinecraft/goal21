@@ -2,6 +2,18 @@
 @section('title', 'Autofill Members')
 
 @section('content')
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Square -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7092046166701332"
+         data-ad-slot="4259765943"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
     <div class="row card text-center p-2">
         <div class="alert alert-primary alert-dismissible fade show col-md-12" role="alert">
             <strong>YOUR AUTOFILL MEMBERS LIST</strong>
@@ -383,4 +395,16 @@
             </div>
         </div>
     </div>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Square -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7092046166701332"
+         data-ad-slot="4259765943"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 @endsection

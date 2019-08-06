@@ -84,6 +84,18 @@
     </div>
 
     <div class="row">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Square -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7092046166701332"
+             data-ad-slot="4259765943"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
         <div class="col-xl-8 col-lg-8 col-md-8 grid-margin">
             <img src="{{ \App\SiteSetting::getSetting('listtask_ad_banner_1') }}" alt="" class="img img-responsive">
         </div>
