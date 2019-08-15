@@ -106,6 +106,9 @@ class RegisterController extends Controller
             'total_task_pending' => $tasksCount
         ]);
 
+        $newUser->wallet_two += 30; // Add 30 INR BONUS MONEY
+        $newUser->save();
+
         if ($data['referral_user']) {
             // Increment total referrals to +1 for the referrer
             $rfu->total_referrals = $rfu->total_referrals + 1;

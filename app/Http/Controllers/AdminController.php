@@ -233,7 +233,6 @@ class AdminController extends Controller
         $user = User::whereUsername($username)->firstOrFail();
 
         $user->payment_confirmed = 1;
-        $user->wallet_two += 30; // Add 30 INR BONUS MONEY
         $user->activated_at = now();
         $user->save();
 

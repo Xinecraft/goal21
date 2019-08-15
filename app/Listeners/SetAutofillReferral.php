@@ -18,52 +18,72 @@ class SetAutofillReferral
         //
     }
 
-    /**
-     * Handle the event.
-     * @TODO: Remove this shit algo and add ssome kind of Balanced Ternary Tree Addition Algorithm
-     *
-     * @param  NewMemberAdded  $event
-     * @return void
-     */
     public function handle(NewMemberAdded $event)
     {
         $user = $event->user;
         $referrer = $user->referredby;
 
-        $keeptrying = true;
-        while ($keeptrying)
+        $nearestEmptyUser = $this->getNearestEmptyNode($referrer);
+
+        // Save Referral
+        $user->referral_user_id_autofill = $nearestEmptyUser->id;
+        $user->save();
+
+        $nearestEmptyUser->total_referrals_autofill += 1;
+        $nearestEmptyUser->save();
+    }
+
+    public function getNearestEmptyNode($rootUser)
+    {
+        // Create a new Queue
+        $queue = new \SplQueue();
+
+        // Add the Root to the Queue
+        $queue->enqueue($rootUser);
+
+        // While Queue is not Empty
+        while (!$queue->isEmpty())
         {
-            if ($referrer->referralsauto->count() < 3) {
-                // User can become his autofill referral
-                $user->referral_user_id_autofill = $referrer->id;
-                $user->save();
+            // Get the Queued User
+            $currentUser = $queue->dequeue();
+            $currentNode = new \stdClass();
+            $currentNode->data = $currentUser;
 
-                $referrer->total_referrals_autofill += 1;
-                $referrer->save();
+            // Get the Referrals. ie. Left and Right and Middle
+            $currentUserReferrals = $currentUser->referralsauto;
+            $currentNode->left = $currentUserReferrals[0] ?? null;
+            $currentNode->middle = $currentUserReferrals[1] ?? null;
+            $currentNode->right = $currentUserReferrals[2] ?? null;
 
-                // Keep trying can be false
-                $keeptrying = false;
+            // Add to queue if not NULL. else found an Empty Slot. Add there.
+            if($currentNode->left)
+            {
+                $queue->enqueue($currentNode->left);
+            }
+            else
+            {
+                return $currentUser;
                 break;
             }
-            else {
-                $godown = true;
-                // Check all 3 below users and if anyone have free then select it
-                foreach ($referrer->referralsauto as $rfo) {
-                    if($rfo->referralsauto->count() < 3)
-                    {
-                        $referrer = $rfo;
-                        $keeptrying = true;
-                        $godown = false;
-                        break;
-                    }
-                }
 
-                if($godown)
-                {
-                    // All the three Nodes are full. Go one down the first element.
-                    $referrer = $referrer->referralsauto->first();
-                    $keeptrying = true;
-                }
+            if($currentNode->middle)
+            {
+                $queue->enqueue($currentNode->middle);
+            }
+            else
+            {
+                return $currentUser;
+                break;
+            }
+
+            if($currentNode->right)
+            {
+                $queue->enqueue($currentNode->right);
+            }
+            else
+            {
+                return $currentUser;
+                break;
             }
         }
     }

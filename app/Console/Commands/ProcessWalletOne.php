@@ -124,7 +124,7 @@ class ProcessWalletOne extends Command
             $user->save();
         }
 
-        User::where('total_task_pending', '>', 0)->update(['total_task_pending' => $tasksCount]);
+        User::query()->update(['total_task_pending' => $tasksCount]);
 
         Log::info("WalletOne Cron Successful");
         $this->info('ProcessWalletOne ran successfully');
