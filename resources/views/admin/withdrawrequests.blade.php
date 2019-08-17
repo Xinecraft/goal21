@@ -72,10 +72,10 @@
                                         {{ Form::open(['method' => 'POST', 'route' => ['admin.post.approve-wr', $payment->uuid]]) }}
                                         <button class="btn btn-success btn-sm confirmit" type="submit" data-confirm-title="Complete Withdrawl Request?" data-confirm-text="Are you sure you want to complete this request. It cant be reverted." data-confirm-btncolor="green" data-confirm-type="info">Mark Paid</button>
                                         {{ Form::close() }}
-
-                                        {{--{{ Form::open(['method' => 'DELETE', 'route' => ['admin.delete.reject-wr', $payment->uuid]]) }}
-                                        <button class="btn btn-danger btn-sm confirmit" type="submit" data-confirm-title="Reject this Payment?" data-confirm-text="Are you sure you want to reject this Payment? All payment data related will be deleted." data-confirm-btncolor="#ffa800" data-confirm-type="error">Reject</button>
-                                        {{ Form::close() }}--}}
+                                        <br>
+                                        {{ Form::open(['method' => 'DELETE', 'route' => ['admin.delete.reject-wr', $payment->uuid]]) }}
+                                        <button class="btn btn-danger btn-sm confirmit" type="submit" data-confirm-title="Reject this Payment?" data-confirm-text="Are you sure you want to reject this Payment? Money will be refunded to users wallet." data-confirm-btncolor="#ffa800" data-confirm-type="error">Reject</button>
+                                        {{ Form::close() }}
                                     </td>
                                 </tr>
                             @empty

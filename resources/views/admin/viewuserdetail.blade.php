@@ -314,6 +314,9 @@
                 @canImpersonate
                 <a href="{{ route('impersonate', $user->id) }}" class="btn btn-primary mr-2">Impersonate this user</a>
                 @endCanImpersonate
+
+                <a class="btn btn-warning mr-2" href="{{ route('get.listmatrixmembers', $user->uuid) }}">View Matrix Members</a>
+                <a class="btn btn-info mr-2" href="{{ route('get.listautofillmembers', $user->uuid) }}">View Autofill Members</a>
             </div>
         </div>
     </div>

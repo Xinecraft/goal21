@@ -680,10 +680,12 @@ class HomeController extends Controller
             return redirect()->route('get.golisttasks');
         }
         $user->tasks()->attach($task, ['status' => 1]);
-        // Only decrease if it is more than 0 to avoid negative error issue
-        if ($user->total_task_pending > 0) {
-            $user->total_task_pending -= 1;
-        }
+
+        $tasks = Task::count();
+        $completedTasks = $user->tasks()->count();
+        $pendingTasks = $tasks - $completedTasks;
+        $user->total_task_pending = $pendingTasks;
+
         $user->wallet_one += $task->credit_inr;
         $user->save();
 
@@ -694,9 +696,13 @@ class HomeController extends Controller
         return redirect()->route('get.golisttasks');
     }
 
-    public function getMatrixMembers(Request $request)
+    public function getMatrixMembers($uuid = null, Request $request)
     {
-        $user = $request->user();
+        if($uuid) {
+            $user = User::whereUuid($uuid)->firstOrFail();
+        } else {
+            $user = $request->user();
+        }
         $levelArray = [];
         $levelArray[1] = $user->referrals;
 
@@ -739,9 +745,13 @@ class HomeController extends Controller
         return view('dashboard.listmatrixmembers')->with('levelArray', $levelArray);
     }
 
-    public function getAutofillMembers(Request $request)
+    public function getAutofillMembers($uuid = null, Request $request)
     {
-        $user = $request->user();
+        if($uuid) {
+            $user = User::whereUuid($uuid)->firstOrFail();
+        } else {
+            $user = $request->user();
+        }
         $levelArray = [];
         $levelArray[1] = $user->referralsauto;
 

@@ -58,8 +58,8 @@ Route::group(['prefix' => 'dashboard'], function(){
     Route::get('task/{uuid}', 'HomeController@getViewTask')->name('get.viewtask');
     Route::post('task/{uuid}', 'HomeController@postViewTask')->name('post.viewtask');
 
-    Route::get('members/matrix', 'HomeController@getMatrixMembers')->name('get.listmatrixmembers');
-    Route::get('members/autofill', 'HomeController@getAutofillMembers')->name('get.listautofillmembers');
+    Route::get('members/matrix/{uuid?}', 'HomeController@getMatrixMembers')->name('get.listmatrixmembers');
+    Route::get('members/autofill/{uuid?}', 'HomeController@getAutofillMembers')->name('get.listautofillmembers');
     Route::get('member/{user}', 'HomeController@getUserDetails')->name('get.userdetails');
 
     Route::get('apply-for-upgrade', 'HomeController@getPremiumApplyForm')->name('get.applyforpremium');
@@ -93,7 +93,7 @@ Route::group(['prefix' => 'dashboard/admin'], function(){
 
     Route::get('withdraw-requests', 'AdminController@getViewPendingWithdrawRequests')->name('admin.get.withdrawrequests');
     Route::post('withdraw-requests/{uuid}/approve', 'AdminController@postApprovePendingWithdrawRequest')->name('admin.post.approve-wr');
-    Route::delete('withdraw-requests/{uuid}/reject', 'AdminController@getViewPendingWithdrawRequests')->name('admin.delete.reject-wr');
+    Route::delete('withdraw-requests/{uuid}/reject', 'AdminController@deleteRejectPendingWithdrawRequest')->name('admin.delete.reject-wr');
 
     Route::get('site-settings', 'AdminController@getSiteSettings')->name('admin.get.sitesettings');
     Route::post('site-settings', 'AdminController@postSiteSettings')->name('admin.post.sitesettings');

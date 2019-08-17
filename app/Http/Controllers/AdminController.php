@@ -209,12 +209,15 @@ class AdminController extends Controller
      */
     public function anyListUsers()
     {
-        $users = User::select(['id', 'full_name', 'username', 'email', 'phone_number', 'created_at', 'total_income', 'status', 'wallet_one', 'wallet_two', 'wallet_three', 'payment_confirmed']);
+        $users = User::select(['id', 'full_name', 'username', 'email', 'phone_number', 'created_at', 'total_income', 'status', 'wallet_one', 'wallet_two', 'wallet_three', 'total_task_pending', 'payment_confirmed']);
 
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
             return '<a href="' . route('admin.get.viewuser',$user->username)  . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> View</a>';})
             ->editColumn('id', 'ID: {{$id}}')
+            ->editColumn('created_at', function($user) {
+                return $user->created_at->toDayDateTimeString();
+            })
             ->addColumn('wallet', function (User $user) {
                 return $user->balanceFloat;
             })
@@ -285,6 +288,21 @@ class AdminController extends Controller
         $payment->save();
 
         toast('Withdraw Request Completed. ', 'success', 'top-right')->autoClose(10000);
+        return redirect()->back();
+    }
+
+    public function deleteRejectPendingWithdrawRequest($uuid, Request $request)
+    {
+        $payment = Payment::whereUuid($uuid)->firstOrFail();
+
+        $payment->payment_status = -1;
+        $payment->paid_at = null;
+        $payment->save();
+
+        // Refund to Wallet
+        $payment->user->depositFloat($payment->payment_amount, ['desc' => 'Withdraw Request Rejected. ID: ' . $payment->id, 'txn_id' => strtoupper(str_random(16))]);
+
+        toast('Withdraw Request Rejected. ', 'info', 'top-right')->autoClose(10000);
         return redirect()->back();
     }
 }

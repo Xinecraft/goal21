@@ -16,7 +16,11 @@
 
     <div class="row card text-center p-2">
         <div class="alert alert-primary alert-dismissible fade show col-md-12" role="alert">
-            <strong>YOUR MATRIX MEMBERS LIST</strong>
+            @if(request()->route()->parameter('uuid'))
+                <strong>MATRIX MEMBERS LIST</strong>
+            @else
+                <strong>YOUR MATRIX MEMBERS LIST</strong>
+            @endif
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
