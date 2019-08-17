@@ -34,6 +34,15 @@
             }
         });
     </script>
+
+    @impersonating
+    <style>
+        body
+        {
+            border: 5px solid red !important;
+        }
+    </style>
+    @endImpersonating
 </head>
 
 <body>

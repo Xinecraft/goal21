@@ -213,12 +213,18 @@ class AdminController extends Controller
 
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
-            return '<a href="' . route('admin.get.edituser',$user->username)  . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';})
+            return '<a href="' . route('admin.get.viewuser',$user->username)  . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> View</a>';})
             ->editColumn('id', 'ID: {{$id}}')
             ->addColumn('wallet', function (User $user) {
                 return $user->balanceFloat;
             })
             ->make(true);
+    }
+
+    public function getUserDetails($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        return view('admin.viewuserdetail')->with('user', $user);
     }
 
     public function getListPaymentApprovals(Request $request)

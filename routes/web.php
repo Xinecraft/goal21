@@ -84,7 +84,7 @@ Route::group(['prefix' => 'dashboard/admin'], function(){
 
     Route::get('users/', 'AdminController@getListUsers')->name('admin.get.listusers');
     Route::any('getusers/', 'AdminController@anyListUsers')->name('admin.any.listusers');
-    Route::get('user/{username}', 'AdminController@getListUsers')->name('admin.get.viewuser');
+    Route::get('user/{username}', 'AdminController@getUserDetails')->name('admin.get.viewuser');
     Route::get('user/{username}/edit', 'AdminController@getListUsers')->name('admin.get.edituser');
 
     Route::get('payment-approval/', 'AdminController@getListPaymentApprovals')->name('admin.get.listpaymentapprovals');
@@ -97,7 +97,10 @@ Route::group(['prefix' => 'dashboard/admin'], function(){
 
     Route::get('site-settings', 'AdminController@getSiteSettings')->name('admin.get.sitesettings');
     Route::post('site-settings', 'AdminController@postSiteSettings')->name('admin.post.sitesettings');
+
+    Route::impersonate();
 });
+
 
 /*Route::get('/test', function()
 {

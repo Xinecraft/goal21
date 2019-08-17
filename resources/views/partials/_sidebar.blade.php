@@ -159,6 +159,15 @@
             </div>
         </li>
 
+        @impersonating
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('impersonate.leave') }}">
+                <i class="menu-icon mdi mdi-book-minus"></i>
+                <span class="menu-title">Leave Impersonation</span>
+            </a>
+        </li>
+        @endImpersonating
+
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault();

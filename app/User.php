@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lab404\Impersonate\Models\Impersonate;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
 {
-    use Notifiable, SoftDeletes, HasWalletFloat;
+    use Notifiable, SoftDeletes, HasWalletFloat, Impersonate;
 
     /**
      * The attributes that are mass assignable.
@@ -54,6 +55,22 @@ class User extends Authenticatable implements JWTSubject, WalletFloat, Wallet
     public function getJWTCustomClaims()
     {
         return ['user' => ['id' => $this->id]];
+    }
+
+    /**
+     * @return bool
+     */
+    public function canImpersonate()
+    {
+        return $this->isAdmin();
+    }
+
+    /**
+     * @return bool
+     */
+    public function canBeImpersonated()
+    {
+        return !$this->isAdmin();
     }
 
     /**
