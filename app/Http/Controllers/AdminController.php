@@ -287,6 +287,9 @@ class AdminController extends Controller
         $payment->paid_at = now();
         $payment->save();
 
+        $payment->user->total_income += $payment->payment_amount;
+        $payment->user->save();
+
         toast('Withdraw Request Completed. ', 'success', 'top-right')->autoClose(10000);
         return redirect()->back();
     }
