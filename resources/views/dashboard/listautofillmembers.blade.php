@@ -46,6 +46,7 @@
                                 <th>Task Pending</th>
                                 <th>Referred By</th>
                                 <th>Premium User</th>
+                                <th>Registered On</th>
                             </tr>
                             @foreach($levelArray[1] as $user)
                                 <tr>
@@ -55,6 +56,7 @@
                                     <td>{{ $user->total_task_pending }}</td>
                                     <td>{{ $user->referredbyauto->username }}</td>
                                     <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                    <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                 </tr>
                             @endforeach
                         </table>
@@ -83,6 +85,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[2] as $user)
                                     <tr>
@@ -92,6 +95,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -120,6 +124,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[3] as $user)
                                     <tr>
@@ -129,6 +134,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -157,6 +163,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[4] as $user)
                                     <tr>
@@ -166,6 +173,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -194,6 +202,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[5] as $user)
                                     <tr>
@@ -203,6 +212,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -231,6 +241,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[6] as $user)
                                     <tr>
@@ -240,6 +251,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -268,6 +280,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[7] as $user)
                                     <tr>
@@ -277,6 +290,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -305,6 +319,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[8] as $user)
                                     <tr>
@@ -314,6 +329,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -342,6 +358,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[9] as $user)
                                     <tr>
@@ -351,6 +368,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -379,6 +397,7 @@
                                     <th>Task Pending</th>
                                     <th>Referred By</th>
                                     <th>Premium User</th>
+                                    <th>Registered On</th>
                                 </tr>
                                 @foreach($levelArray[10] as $user)
                                     <tr>
@@ -388,6 +407,7 @@
                                         <td>{{ $user->total_task_pending }}</td>
                                         <td>{{ $user->referredbyauto->username }}</td>
                                         <td>{{ $user->payment_confirmed > 0 ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $user->created_at->toDayDateTimeString() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
