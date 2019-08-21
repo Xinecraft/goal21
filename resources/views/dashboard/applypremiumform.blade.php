@@ -31,27 +31,19 @@
                             <div class="col-md-12 row">
                                 <div class="col-md-6 font-weight-bold">
                                     <p>
-                                        PayTM Number: 8053307200,
-                                        9671860272,
+                                        PayTM Number: 8053307200
                                         <br><br>
-                                        Google Pay & PhonePe: 8053307200, 9671860272
+                                        Google Pay & PhonePe: 8053307200
                                     </p>
                                     <p>
                                         UPI ID: <br>
-                                        8053307200@paytm <br>
-                                        9671860272@paytm
+                                        8053307200@paytm
                                     </p>
                                 </div>
                                 <div class="col-md-6 font-weight-bold">
                                     <p>
                                         Account No: 918053307200 <br>
                                         Holder Name: ASHISH <br>
-                                        Bank: Paytm Payment Bank <br>
-                                        IFSC: PYTM0123456
-                                    </p>
-                                    <p>
-                                        Account No: 919671860272 <br>
-                                        Holder Name: DEEPANSHU <br>
                                         Bank: Paytm Payment Bank <br>
                                         IFSC: PYTM0123456
                                     </p>
