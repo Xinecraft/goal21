@@ -47,7 +47,7 @@ class ProcessWalletOne extends Command
             Log::info("=====SELF EARNING=====");
             // If he has not completed all his task then flush his Day Earning.
             if ($user->total_task_pending > 0) {
-                Log::info($user->username . " has not completed tasks. WalletOne: 0");
+                Log::info($user->username . " has not completed tasks ($user->total_task_pending pending). WalletOne: 0");
                 $user->wallet_one = 0;
             } // If he has completed his tasks so move day earning to month earning
             else {
@@ -55,6 +55,7 @@ class ProcessWalletOne extends Command
                 Log::info($user->username . " has completed tasks. Moving INR " . $user->wallet_one . " to WalletTwo.");
                 $user->wallet_two += $user->wallet_one;
                 $user->wallet_one = 0;
+                $user->save();
 
 
                 Log::info("=====MATRIX EARNING=====");

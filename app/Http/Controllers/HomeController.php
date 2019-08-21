@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Uuid;
 
@@ -688,6 +689,7 @@ class HomeController extends Controller
 
         $user->wallet_one += $task->credit_inr;
         $user->save();
+        Log::info($user->username." completed Task $task->id and got $task->credit_inr. Task Pending = $user->total_task_pending. New Wallet One Balance: $user->wallet_one");
 
         $task->total_impression += 1;
         $task->save();
