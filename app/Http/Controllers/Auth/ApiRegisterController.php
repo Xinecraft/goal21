@@ -37,6 +37,8 @@ class ApiRegisterController extends RegisterController
 
         $this->guard()->login($user);
 
-        return response(['user' => $user]);
+        $userData = User::find($user->id);
+
+        return response(['user' => $userData]);
     }
 }

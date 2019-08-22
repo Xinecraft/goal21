@@ -683,11 +683,26 @@ class HomeController extends Controller
         $user->tasks()->attach($task, ['status' => 1]);
 
         $tasks = Task::count();
+        $task_sum = Task::sum('credit_inr');
+
         $completedTasks = $user->tasks()->count();
         $pendingTasks = $tasks - $completedTasks;
         $user->total_task_pending = $pendingTasks;
 
-        $user->wallet_one += $task->credit_inr;
+        // Bug Fix shit
+        if ($user->total_task_pending < 0)
+        {
+            $user->total_task_pending = 0;
+        }
+
+        $user->wallet_one = $user->wallet_one + $task->credit_inr;
+
+        // Bug fix shit
+        if($user->total_task_pending <= 0 && $user->wallet_one != $task_sum)
+        {
+            $user->wallet_one = $task_sum;
+        }
+
         $user->save();
         Log::info($user->username." completed Task $task->id and got $task->credit_inr. Task Pending = $user->total_task_pending. New Wallet One Balance: $user->wallet_one");
 
