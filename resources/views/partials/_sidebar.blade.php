@@ -140,7 +140,7 @@
             <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('get.editprofile') }}">Manage Profile </a>
+                        <a class="nav-link" href="{{ route('get.editprofile') }}">View Profile </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('get.resetpassword') }}">Change Password </a>

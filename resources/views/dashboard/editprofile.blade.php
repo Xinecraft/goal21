@@ -44,7 +44,7 @@
                         <div class="form-group row">
                             <label for="full_name" class="col-sm-3 col-form-label">Full Name<b>*</b></label>
                             <div class="col-sm-9">
-                                {{ Form::text('full_name', null, ['class' => 'form-control', 'id' => 'full_name', 'placeholder' => 'Your Full Name...', 'required']) }}
+                                {{ Form::text('full_name', null, ['class' => 'form-control', 'id' => 'full_name', 'placeholder' => 'Your Full Name...', 'required', 'disabled']) }}
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="form-group row">
                             <label for="phone_number" class="col-sm-3 col-form-label">Mobile No.<b>*</b></label>
                             <div class="col-sm-9">
-                                {{ Form::text('phone_number', null, ['class' => 'form-control', 'id' => 'phone_number', 'placeholder' => '10 digit mobile number', 'required']) }}
+                                {{ Form::text('phone_number', null, ['class' => 'form-control', 'id' => 'phone_number', 'placeholder' => '10 digit mobile number', 'required', 'disabled']) }}
                             </div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         <div class="form-group row">
                             <label for="gender" class="col-sm-3 col-form-label">Gender<b>*</b></label>
                             <div class="col-sm-9">
-                                {{ Form::select('gender', ['M' => 'Male', 'F' => 'Female', 'O' => 'Others'], null, ['placeholder' => 'Select your gender...', 'class' => 'form-control', 'id' => 'gender', 'required']) }}
+                                {{ Form::select('gender', ['M' => 'Male', 'F' => 'Female', 'O' => 'Others'], null, ['placeholder' => 'Select your gender...', 'class' => 'form-control', 'id' => 'gender', 'required', 'disabled']) }}
                             </div>
                         </div>
                     </div>
@@ -71,39 +71,7 @@
                         <div class="form-group row">
                             <label for="dob" class="col-sm-3 col-form-label">Date of Birth<b>*</b></label>
                             <div class="col-sm-9">
-                                {{ Form::date('dob', null, ['class' => 'form-control', 'id' => 'dob', 'required']) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label for="photo" class="col-sm-3 col-form-label">Upload Photo</label>
-                            <div class="col-sm-9">
-                                <input id="photo" class="form-control{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo" type="file">
-                                @if ($errors->has('photo'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('photo') }}</strong>
-                                    </span>
-                                @else
-                                    <small class="text-muted">Leave empty to keep DP unchanged.</small>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label for="pancard" class="col-sm-3 col-form-label">PAN Card</label>
-                            <div class="col-sm-9">
-                                {{ Form::text('pancard', null, ['class' => 'form-control', 'id' => 'pancard', 'placeholder' => 'Eg: BUFPAXXXXX']) }}
-                                @if ($errors->has('pancard'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('pancard') }}</strong>
-                                    </span>
-                                @endif
+                                {{ Form::date('dob', null, ['class' => 'form-control', 'id' => 'dob', 'required', 'disabled']) }}
                             </div>
                         </div>
                     </div>
@@ -117,7 +85,7 @@
                         <div class="form-group row">
                             <label for="addr_line1" class="col-sm-3 col-form-label">Address line 1</label>
                             <div class="col-sm-9">
-                                {{ Form::text('addr_line1', null, ['class' => 'form-control', 'id' => 'addr_line1', 'placeholder' => 'House Number or Landmark']) }}
+                                {{ Form::text('addr_line1', null, ['class' => 'form-control', 'id' => 'addr_line1', 'placeholder' => 'House Number or Landmark', 'disabled']) }}
                                 @if ($errors->has('addr_line1'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('addr_line1') }}</strong>
@@ -131,7 +99,7 @@
                         <div class="form-group row">
                             <label for="state" class="col-sm-3 col-form-label">State<b>*</b></label>
                             <div class="col-sm-9">
-                                {{ Form::select('state', getIndianStates(), null, ['class' => 'form-control', 'placeholder' => 'Select a state...', 'id' => 'state', 'required']) }}
+                                {{ Form::select('state', getIndianStates(), null, ['class' => 'form-control', 'placeholder' => 'Select a state...', 'id' => 'state', 'required', 'disabled']) }}
                                 @if ($errors->has('state'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('state') }}</strong>
@@ -146,7 +114,7 @@
                         <div class="form-group row">
                             <label for="addr_line2" class="col-sm-3 col-form-label">Address line 2</label>
                             <div class="col-sm-9">
-                                {{ Form::text('addr_line2', null, ['class' => 'form-control', 'id' => 'addr_line2', 'placeholder' => 'Village or Society']) }}
+                                {{ Form::text('addr_line2', null, ['class' => 'form-control', 'id' => 'addr_line2', 'placeholder' => 'Village or Society', 'disabled']) }}
                                 @if ($errors->has('addr_line2'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('addr_line2') }}</strong>
@@ -159,7 +127,7 @@
                         <div class="form-group row">
                             <label for="pincode" class="col-sm-3 col-form-label">Pincode<b>*</b></label>
                             <div class="col-sm-9">
-                                {{ Form::text('pincode', null, ['class' => 'form-control', 'id' => 'pincode', 'placeholder' => 'Village or Society', 'required']) }}
+                                {{ Form::text('pincode', null, ['class' => 'form-control', 'id' => 'pincode', 'placeholder' => 'Village or Society', 'required', 'disabled']) }}
                                 @if ($errors->has('pincode'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('pincode') }}</strong>
@@ -174,7 +142,7 @@
                         <div class="form-group row">
                             <label for="city" class="col-sm-3 col-form-label">City<b>*</b></label>
                             <div class="col-sm-9">
-                                {{ Form::text('city', null, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Your City', 'required']) }}
+                                {{ Form::text('city', null, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Your City', 'required', 'disabled']) }}
                                 @if ($errors->has('city'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('city') }}</strong>
@@ -187,7 +155,7 @@
                         <div class="form-group row">
                             <label for="district" class="col-sm-3 col-form-label">District<b>*</b></label>
                             <div class="col-sm-9">
-                                {{ Form::text('district', null, ['class' => 'form-control', 'id' => 'district', 'placeholder' => 'Your District', 'required']) }}
+                                {{ Form::text('district', null, ['class' => 'form-control', 'id' => 'district', 'placeholder' => 'Your District', 'required', 'disabled']) }}
                                 @if ($errors->has('district'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('district') }}</strong>
@@ -206,7 +174,7 @@
                         <div class="form-group row">
                             <label for="bank_account_number" class="col-sm-3 col-form-label">Acc. Number</label>
                             <div class="col-sm-9">
-                                {{ Form::text('bank_account_number', null, ['class' => 'form-control', 'id' => 'bank_account_number', 'placeholder' => 'Bank Account Number...']) }}
+                                {{ Form::text('bank_account_number', null, ['class' => 'form-control', 'id' => 'bank_account_number', 'placeholder' => 'Bank Account Number...', 'disabled']) }}
                                 @if ($errors->has('bank_account_number'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('bank_account_number') }}</strong>
@@ -219,7 +187,7 @@
                         <div class="form-group row">
                             <label for="bank_account_holdername" class="col-sm-3 col-form-label">Holder Name</label>
                             <div class="col-sm-9">
-                                {{ Form::text('bank_account_holdername', null, ['class' => 'form-control', 'id' => 'bank_account_holdername', 'placeholder' => 'Bank Account Holder Name...']) }}
+                                {{ Form::text('bank_account_holdername', null, ['class' => 'form-control', 'id' => 'bank_account_holdername', 'placeholder' => 'Bank Account Holder Name...', 'disabled']) }}
                                 @if ($errors->has('bank_account_holdername'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('bank_account_holdername') }}</strong>
@@ -234,7 +202,7 @@
                         <div class="form-group row">
                             <label for="bank_account_bankname" class="col-sm-3 col-form-label">Bank Name</label>
                             <div class="col-sm-9">
-                                {{ Form::text('bank_account_bankname', null, ['class' => 'form-control', 'id' => 'bank_account_bankname', 'placeholder' => 'Name of the Bank...']) }}
+                                {{ Form::text('bank_account_bankname', null, ['class' => 'form-control', 'id' => 'bank_account_bankname', 'placeholder' => 'Name of the Bank...', 'disabled']) }}
                                 @if ($errors->has('bank_account_bankname'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('bank_account_bankname') }}</strong>
@@ -247,7 +215,7 @@
                         <div class="form-group row">
                             <label for="bank_account_ifsc" class="col-sm-3 col-form-label">IFSC Code</label>
                             <div class="col-sm-9">
-                                {{ Form::text('bank_account_ifsc', null, ['class' => 'form-control', 'id' => 'bank_account_ifsc', 'placeholder' => 'Bank Branch IFSC Code...']) }}
+                                {{ Form::text('bank_account_ifsc', null, ['class' => 'form-control', 'id' => 'bank_account_ifsc', 'placeholder' => 'Bank Branch IFSC Code...', 'disabled']) }}
                                 @if ($errors->has('bank_account_ifsc'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('bank_account_ifsc') }}</strong>
@@ -270,7 +238,7 @@
                                  'DTA' => 'DEMAT Account',
                                  'NRA' => 'NRI Accounts'
                                  ],
-                                 null, ['placeholder' => 'Select account type...', 'id' => 'bank_account_type', 'class' => 'form-control']) }}
+                                 null, ['placeholder' => 'Select account type...', 'id' => 'bank_account_type', 'class' => 'form-control', 'disabled']) }}
                                 @if ($errors->has('bank_account_type'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('bank_account_type') }}</strong>
@@ -285,7 +253,7 @@
                         <div class="form-group row">
                             <label for="paytm_number" class="col-sm-3 col-form-label">PayTM Number</label>
                             <div class="col-sm-9">
-                                {{ Form::text('paytm_number', null, ['class' => 'form-control', 'id' => 'paytm_number', 'placeholder' => 'Your PayTM Mobile Number...']) }}
+                                {{ Form::text('paytm_number', null, ['class' => 'form-control', 'id' => 'paytm_number', 'placeholder' => 'Your PayTM Mobile Number...', 'disabled']) }}
                                 @if ($errors->has('paytm_number'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('paytm_number') }}</strong>
@@ -299,7 +267,7 @@
                         <div class="form-group row">
                             <label for="upi_id" class="col-sm-3 col-form-label">UPI ID</label>
                             <div class="col-sm-9">
-                                {{ Form::text('upi_id', null, ['class' => 'form-control', 'id' => 'upi_id', 'placeholder' => 'Your UPI ID...']) }}
+                                {{ Form::text('upi_id', null, ['class' => 'form-control', 'id' => 'upi_id', 'placeholder' => 'Your UPI ID...', 'disabled']) }}
                                 @if($errors->has('upi_id'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('upi_id') }}</strong>
@@ -319,7 +287,7 @@
                                  'PAYTM' => 'PayTM Number',
                                  'UPI' => 'UPI ID'
                                  ],
-                                 null, ['placeholder' => 'Select your PPM type...', 'id' => 'preferred_payment_method', 'class' => 'form-control', 'required']) }}
+                                 null, ['placeholder' => 'Select your PPM type...', 'id' => 'preferred_payment_method', 'class' => 'form-control', 'required', 'disabled']) }}
                                 @if ($errors->has('preferred_payment_method'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('preferred_payment_method') }}</strong>
@@ -332,8 +300,9 @@
                 </div>
 
                 <br>
-                <button type="submit" class="btn btn-success mr-2 confirmit monitored-btn" data-confirm-title="Edit Profile" data-confirm-text="Are you sure you wanna make these changes to your profile?" data-confirm-btncolor="#00ce68" data-confirm-type="info">Edit Profile</button>
-                <a href="{{ route('dashboard') }}" class="btn btn-light">Cancel</a>
+                {{--<button type="submit" class="btn btn-success mr-2 confirmit monitored-btn" data-confirm-title="Edit Profile" data-confirm-text="Are you sure you wanna make these changes to your profile?" data-confirm-btncolor="#00ce68" data-confirm-type="info">Edit Profile</button>--}}
+
+                <a href="{{ route('dashboard') }}" class="btn btn-light">Back</a>
 
                 {{ Form::close() }}
             </div>

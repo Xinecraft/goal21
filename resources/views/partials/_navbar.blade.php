@@ -23,7 +23,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <a class="dropdown-item mt-2" href="{{ route('get.editprofile') }}">
-                        Manage Profile
+                        View Profile
                     </a>
                     <a class="dropdown-item"href="{{ route('get.resetpassword') }}">
                         Change Password

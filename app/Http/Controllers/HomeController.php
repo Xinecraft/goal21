@@ -517,16 +517,16 @@ class HomeController extends Controller
             'password' => 'required|confirmed|min:6'
         ]);
         $user = $request->user();
-        if ($request->curr_password == $request->password) {
+        /*if ($request->curr_password == $request->password) {
             alert()->error('Error!', 'Current Password & New Password cannot be same.')->showCancelButton('Close')->autoClose(5000);
             return redirect()->back();
-        }
-        if (Hash::check($request->curr_password, $user->password)) {
+        }*/
+        //if (Hash::check($request->curr_password, $user->password)) {
             $user->password = Hash::make($request->password);
             $user->save();
             alert()->success('Password Updated!', 'You have successfully updated your password.')->showCancelButton('Close')->autoClose(5000);
             return redirect()->route('dashboard');
-        }
+        //}
         alert()->error('Error!', 'Current Password did not match our records.')->showCancelButton('Close')->autoClose(5000);
         return redirect()->back();
     }
@@ -537,10 +537,10 @@ class HomeController extends Controller
      */
     public function getEditProfile(Request $request)
     {
-        if (!$request->user()->is_profile_completed) {
+        /*if (!$request->user()->is_profile_completed) {
             alert()->error('User not Active!', 'Please go ahead and complete KYC to enable Edit Option');
             return redirect()->route('dashboard');
-        }
+        }*/
         return view('dashboard.editprofile')->with('user', $request->user());
     }
 
@@ -550,6 +550,8 @@ class HomeController extends Controller
      */
     public function postEditProfile(EditProfile $request)
     {
+        return redirect()->back();
+
         $full_name = $request->full_name;
         $gender = $request->gender;
         $dob = $request->dob;
