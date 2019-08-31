@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Log;
 use JWTAuth;
 use JWTAuthException;
 use App\User;
@@ -66,6 +68,76 @@ class ApiAuthController extends Controller
     public function me()
     {
         return response()->json(auth('api')->user());
+    }
+
+    public function getTasks()
+    {
+        $tasks = Task::all();
+        $completedTasks = auth('api')->user()->tasks;
+
+        $allTasks = $tasks->map(function ($task) use ($completedTasks) {
+            $task->completed = false;
+            if ($completedTasks->contains($task)) {
+                $task->completed = true;
+            }
+            return $task;
+        });
+        return response()->json($allTasks);
+    }
+
+    public function getOneTask($uuid)
+    {
+        $task = Task::whereUuid($uuid)->firstorFail();
+        $completedTasks = auth('api')->user()->tasks;
+        $task->completed = false;
+        if ($completedTasks->contains($task)) {
+            $task->completed = true;
+        }
+        return response()->json($task);
+    }
+
+    public function postCompleteTask($uuid, Request $request)
+    {
+        if(env('KAKA_KEY') != $request->application_key)
+        {
+            return response()->json(['error' => 'Service Unavailable']);
+        }
+        $user = auth('api')->user();
+        $task = Task::whereUuid($uuid)->firstorFail();
+        $completedTasks = $user->tasks;
+        if ($completedTasks->contains($task)) {
+            return response()->json(['error' => 'Task Already Completed']);
+        }
+        $user->tasks()->attach($task, ['status' => 1]);
+
+        $tasks = Task::count();
+        $task_sum = Task::sum('credit_inr');
+
+        $completedTasks = $user->tasks()->count();
+        $pendingTasks = $tasks - $completedTasks;
+        $user->total_task_pending = $pendingTasks;
+
+        // Bug Fix shit
+        if ($user->total_task_pending < 0)
+        {
+            $user->total_task_pending = 0;
+        }
+
+        $user->wallet_one = $user->wallet_one + $task->credit_inr;
+
+        // Bug fix shit
+        if($user->total_task_pending <= 0 && $user->wallet_one != $task_sum)
+        {
+            $user->wallet_one = $task_sum;
+        }
+
+        $user->save();
+        Log::info($user->username." completed Task $task->id and got $task->credit_inr. Task Pending = $user->total_task_pending. New Wallet One Balance: $user->wallet_one");
+
+        $task->total_impression += 1;
+        $task->save();
+
+        return response()->json(['success' => 'Task Completed Successfully']);
     }
 
     /**

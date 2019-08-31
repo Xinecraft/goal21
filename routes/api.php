@@ -23,4 +23,7 @@ Route::group(['middleware' => ['api','cors']], function () {
     Route::post('auth/logout', 'Auth\ApiAuthController@logout');
     Route::post('auth/refresh', 'Auth\ApiAuthController@refresh');
     Route::post('auth/me', 'Auth\ApiAuthController@me');
+    Route::get('auth/tasks', 'Auth\ApiAuthController@getTasks');
+    Route::get('auth/task/{uuid}', 'Auth\ApiAuthController@getOneTask');
+    Route::post('auth/task/{uuid}/complete', 'Auth\ApiAuthController@postCompleteTask');
 });
