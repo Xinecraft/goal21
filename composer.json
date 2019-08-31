@@ -16,7 +16,6 @@
         "jorenvanhocht/laravel-share": "^2.0",
         "lab404/laravel-impersonate": "1.2",
         "laravel/framework": "5.7.*",
-        "laravel/telescope": "~1.0",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
         "mccool/laravel-auto-presenter": "^7.1",

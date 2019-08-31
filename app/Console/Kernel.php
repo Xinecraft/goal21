@@ -38,8 +38,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('process:walletone')->daily();
         $schedule->command('process:walletthree')->weeklyOn(5, '6:00');
         $schedule->command('process:wallettwo')->monthlyOn(1, '0:59');
-
-        $schedule->command('telescope:prune --hours=48')->daily();
     }
 
     /**

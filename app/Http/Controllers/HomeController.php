@@ -317,7 +317,7 @@ class HomeController extends Controller
         if ($request->user()->upi_id)
             $selector = array_add($selector, 'UPI', 'UPI ID');
 
-        $paymentAmountOptions = [100 => '₹100', 200 => '₹200', 300 => '₹300', 500 => '₹500', 1000 => '₹1000', 2000 => '₹2000', 5000 => '₹5000', 10000 => '₹10,000', 15000 => '₹15,000', 20000 => '₹20,000', 30000 => '₹30,000', 40000 => '₹40,000', 50000 => '₹50,000'];
+        $paymentAmountOptions = [300 => '₹300', 500 => '₹500', 1000 => '₹1000', 2000 => '₹2000', 5000 => '₹5000', 10000 => '₹10,000', 15000 => '₹15,000', 20000 => '₹20,000', 30000 => '₹30,000', 40000 => '₹40,000', 50000 => '₹50,000'];
 
         return view('dashboard.withdrawrequestform')->with('selector', $selector)->with('paymentAmountOptions', $paymentAmountOptions);
     }
@@ -347,7 +347,7 @@ class HomeController extends Controller
                 'required',
                 Rule::in(['BANK', 'PAYTM', 'UPI']),
             ],
-            'payment_amount' => 'required|in:100,200,300,500,1000,2000,5000,10000,15000,20000,30000,40000,50000',
+            'payment_amount' => 'required|in:300,500,1000,2000,5000,10000,15000,20000,30000,40000,50000',
         ]);
 
         // Amount must be smaller than wallet balance
