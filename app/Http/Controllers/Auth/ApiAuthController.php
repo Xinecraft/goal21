@@ -67,7 +67,16 @@ class ApiAuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth('api')->user());
+        $user = auth('api')->user();
+        if(!$user)
+        {
+            return response()->json(['error' => 'Unauthorized']);
+        }
+
+        $user->wallet_bal_rupee = $user->balanceFloat;
+        $user->referral_user_id = $user->referredby()->get(['id', 'full_name', 'username', 'email']);
+        $user->referral_user_id_autofill = $user->referredbyauto()->get(['id', 'full_name', 'username', 'email']);
+        return response()->json($user);
     }
 
     public function getTasks()
