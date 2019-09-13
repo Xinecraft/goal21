@@ -28,10 +28,36 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function getKYCs()
+    // public function getKYCs()
+    // {
+    //     $kycs = User::where('is_kyc', 0)->orWhere('is_kyc', 1)->orderBy('is_kyc')->latest()->paginate();
+    //     return view('admin.listkyc')->with('kycs', $kycs);
+    // }
+
+    public function getListKYCs()
     {
-        $kycs = User::where('is_kyc', 0)->orWhere('is_kyc', 1)->orderBy('is_kyc')->latest()->paginate();
-        return view('admin.listkyc')->with('kycs', $kycs);
+        return view('admin.listkyc');
+    }
+
+    public function anyListKYCs()
+    {
+        $kycs = User::where('is_kyc', 0)->orWhere('is_kyc', 1)->orderBy('is_kyc')->latest()->get(['id','username', 'email', 'uuid', 'status', 'kyc_request_at', 'is_kyc', 'created_at']);
+
+        return Datatables::of($kycs)
+            ->addColumn('action', function ($user) {
+                return '<a href="' . route('admin.get.kycdetail',$user->username)  . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> View Details</a>';})
+            ->editColumn('id', 'ID: {{$id}}')
+            ->editColumn('kyc_request_at', function($user) {
+                return $user->kyc_request_at->toDayDateTimeString();
+            })
+            ->editColumn('status', function($user) {
+                return $user->is_kyc > 0 ? "<span class='text-success'>Approved</span>" : "<span class='text-danger'>Pending</span>";
+            })
+            ->addColumn('wallet', function (User $user) {
+                return '₹ '.$user->balanceFloat;
+            })
+            ->rawColumns(['status', 'action'])
+            ->make(true);
     }
 
     public function getKYCDetail($username)

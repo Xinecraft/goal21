@@ -17,10 +17,8 @@
                 <p class="card-description text-info font-weight-semibold">
                     List of all pending & accepted KYCs
                 </p>
-
-                @if($kycs->total() > 0)
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
+                        <table class="table table-striped table-bordered" id="kyc-table">
                             <thead>
                             <tr>
                                 <th>
@@ -46,44 +44,31 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody>
-                            @forelse($kycs as $kyc)
-                                <tr>
-                                    <td class="py-1">
-                                        {{ $kyc->id }}
-                                    </td>
-                                    <td class="text-{{ $kyc->is_kyc <= 0 ? 'warning' : 'success' }}" style="font-weight: 600;">
-                                        {{ $kyc->username }}
-                                    </td>
-                                    <td>
-                                        {{ $kyc->email }}
-                                    </td>
-                                    <td>
-                                        ₹ {{ $kyc->balanceFloat }}
-                                    </td>
-                                    <td>
-                                        {!! $kyc->is_kyc > 0 ? "<span class='text-success'>Approved</span>" : "<span class='text-danger'>Pending</span>" !!}
-                                    </td>
-                                    <td>
-                                        {{ $kyc->kyc_request_at->diffForHumans() }}
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-outline-primary btn-sm" href="{{ route('admin.get.kycdetail', $kyc->username) }}">View</a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <h3 class="text-danger">No KYC Yet!</h3>
-                            @endforelse
-                            </tbody>
                         </table>
                     </div>
-                @else
-                    <h4 class="text-center"><i>No KYC Yet. Comeback later.</i></h4>
-                @endif
             </div>
         </div>
     </div>
     <div class="pull-right">
-        {{ $kycs->render() }}
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(function () {
+            $('#kyc-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('admin.any.kyclist') !!}',
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'username', name: 'username'},
+                    {data: 'email', name: 'email'},
+                    {data: 'wallet', name: 'wallet'},
+                    {data: 'status', name: 'status'},
+                    {data: 'kyc_request_at', name: 'kyc_request_at'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                ]
+            });
+        });
+    </script>
 @endsection

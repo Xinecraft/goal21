@@ -70,7 +70,9 @@ Route::group(['prefix' => 'dashboard'], function(){
 
 // TODO ADD AUTH ADMIN
 Route::group(['prefix' => 'dashboard/admin'], function(){
-    Route::get('kyc', 'AdminController@getKYCs')->name('admin.get.kyclist');
+    // Route::get('kyc', 'AdminController@getKYCs')->name('admin.get.kyclist');
+    Route::get('kyc', 'AdminController@getListKYCs')->name('admin.get.kyclist');
+    Route::any('getkyc', 'AdminController@anyListKYCs')->name('admin.any.kyclist');
     Route::get('kyc/{username}', 'AdminController@getKYCDetail')->name('admin.get.kycdetail');
     Route::post('kyc/approve/all', 'AdminController@postApproveAllKYC')->name('admin.post.approveallkyc');
     Route::post('kyc/{username}', 'AdminController@postActionOnKYC')->name('admin.post.kycdetail');
